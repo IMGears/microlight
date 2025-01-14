@@ -1,10 +1,4 @@
-import Image from "next/image";
-import Test from "@/components/Test";
-
+import { redirect } from "next/navigation";
 export default function Home() {
-  return (
-    <>
-      <Test/>
-    </>
-  );
+  redirect('/library');
 }
