@@ -12,8 +12,12 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/joy": "^5.0.0-beta.51",
+    "async": "^3.2.6",
+    "lodash": "^4.17.21",
     "next": "15.1.4",
+    "next-nprogress-bar": "^2.4.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "switchless": "^0.18.0"
   }
 }
