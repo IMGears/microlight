@@ -73,6 +73,7 @@ export default function PageHeader({ header = "PageHeader", RightButtons = null,
 				flexDirection: { xs: 'column', sm: 'row' },
 				alignItems: { xs: 'flex-start', sm: 'center' },
 				gap: { xs: 1, sm: 1 },
+				pt:0.5,
 			}}>
 			<Box sx={{ flexGrow: 1 }}>
 				{breadcrumbs && <BreadcrumbsCustom breadcrumbs={breadcrumbs} />}

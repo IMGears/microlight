@@ -41,7 +41,6 @@ export default function ViewFolder({params,folder,contents,fileList}){
   const dir = params.f_path?'/'+params.f_path?.join('/'):'';
   return <>
     <Container>
-      <br/>
       <PageHeader breadcrumbs={breadcrumbs} header={{
         part1: 'Folder:',
         part2: folder.name
@@ -74,7 +73,7 @@ export default function ViewFolder({params,folder,contents,fileList}){
                   {content.type=='task' && <>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <SendIcon sx={{color: '#6435c9'}} />
-                      <Link href={'/task/'+content.slug}>{content.name}</Link>
+                      <Link href={'/tasks/'+content.slug}>{content.name}</Link>
                     </Box>
                   </>}
                 </td>
