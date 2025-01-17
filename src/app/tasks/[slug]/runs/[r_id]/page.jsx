@@ -1,8 +1,7 @@
 import getTaskDetails from "@/lib/getTaskDetails";
-import ViewTask from "./ViewTask";
+import { ViewRun } from "./ViewRun";
 import async from 'async';
 import microlightDB from "@/database/microlight";
-import { orderBy } from "lodash";
 
 export default async function Page({params, searchParams}){
   params = await params;
@@ -13,9 +12,12 @@ export default async function Page({params, searchParams}){
       delete task.fn;
       return task
     },
-    getRuns:async function(){
-      return await microlightDB.Run.findAll({
-        where:{task:params.slug},
+    getRun:async function(){
+      return await microlightDB.Run.findOne({
+        where:{
+          task:params.slug,
+          id:params.r_id,
+        },
         raw:true,
         order:[
           ['updated_at','DESC']
@@ -24,6 +26,5 @@ export default async function Page({params, searchParams}){
     },
   }
   let results = await async.auto(workflow);
-
-  return <ViewTask params={params} task={results.getTask} runs={results.getRuns} searchParams={searchParams}/>
+  return <ViewRun params={params} task={results.getTask} run={results.getRun} searchParams={searchParams}/>
 }

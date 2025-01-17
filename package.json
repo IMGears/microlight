@@ -16,8 +16,12 @@
     "lodash": "^4.17.21",
     "next": "15.1.4",
     "next-nprogress-bar": "^2.4.3",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7",
     "switchless": "^0.18.0"
   }
 }

@@ -28,6 +28,8 @@ git push -u origin main
 
 ## Updating microlight
 
+setup microlight as a remote-tracking branch. You can keep pulling from this branch occasionally and merging the content
+
 ```shell
 # Fetch the latest changes
 git fetch microlight

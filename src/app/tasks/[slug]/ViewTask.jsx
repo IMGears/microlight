@@ -1,5 +1,5 @@
 'use client';
-import { Container, Typography, Box, Card, ButtonGroup, Button } from '@mui/joy';
+import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Link, Chip } from '@mui/joy';
 import PageHeader from '@/components/PageHeader';
 import SendIcon from '@mui/icons-material/Send';
 import MLInput from '@/components/MLInput';
@@ -35,7 +35,7 @@ function generateBreadcrumbs({task}) {
   return breadcrumbs;
 }
 
-export default function ViewTask({params, task, searchParams}) {
+export default function ViewTask({params, task, runs,searchParams}) {
   const breadcrumbs = generateBreadcrumbs({task});
   const [loading,setLoading]=useState(false);
   
@@ -76,6 +76,68 @@ export default function ViewTask({params, task, searchParams}) {
           </ButtonGroup>
         </form>
       </Card>
+      <Typography level="title-lg" sx={{mt:3}}>Recent runs:</Typography>
+      {/* <pre>{JSON.stringify(runs,null,2)}</pre> */}
+      
+      <Table 
+        variant='outlined' 
+        aria-label="task runs table" 
+        size='md'
+        sx={{
+          mt: 1,
+          maxWidth: 600,
+          '& th': {
+            height:{
+              sm:"22px",
+              md:"26px",
+              lg:"30px"
+            }
+          },
+          '& td': {
+            height:{
+              sm:"23px",
+              md:"27px",
+              lg:"31px"
+            }
+          }
+        }}
+      >
+        <thead>
+          <tr>
+            {/* <th ></th> */}
+            <th style={{ width: '30%' }}>Created At</th>
+            <th style={{ width: '30%' }}>ID</th>
+            <th>Status</th>
+            <th style={{ width: '58px' }}>Duration</th>
+            <th>By</th>
+            {/* <th>User</th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {runs.map((run) => (
+            <tr key={run.id}>
+              <td>{new Date(run.updated_at).toLocaleString()}</td>
+              <td>
+                <Link href={`/tasks/${params.slug}/runs/${run.id}`} level="body-sm">
+                  {task.slug} #{run.id}
+                </Link>
+              </td>
+              <td>
+                <Chip
+                  variant="soft"
+                  color={run.status === 'succeeded' ? 'success' : 'danger'}
+                  size="sm"
+                >
+                  {run.status||'pending'}
+                </Chip>
+              </td>
+              <td style={{textAlign: 'right'}}>{run.duration||0}s</td>
+              <td>{run.by||'user'}</td>
+              {/* <td>{run.user}</td> */}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
       {/* Add your task execution UI components here */}
       
       {/* Uncomment for debugging */}
