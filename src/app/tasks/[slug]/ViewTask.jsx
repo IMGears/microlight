@@ -47,7 +47,8 @@ export default function ViewTask({params, task, searchParams}) {
     const formData = new FormData(form);
     let result = await executeTask({formData,task})
     if(result.success)
-      redirect(`/tasks/${task.slug}/run/305`)
+      window.location.reload();
+      // redirect(`/tasks/${task.slug}`)
   };
   return (
     <Container>
