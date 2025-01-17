@@ -39,4 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# microlight
 /src/temp/*
+/src/database/microlight/data/*
+
+
+# gitkeep is always commited
+!.gitkeep
+
