@@ -1,4 +1,4 @@
-import { FormControl, FormLabel,Input } from "@mui/joy";
+import { FormControl, FormLabel,Input, Select, Option } from "@mui/joy";
 
 export default function MLInput({def,slug}){
 
@@ -21,6 +21,20 @@ export default function MLInput({def,slug}){
           type="file"
           // Add any file-specific props here
         />
+      )}
+      {def.type === 'dropdown' && (
+        <Select
+          size="sm"
+          name={slug}
+          placeholder={def.placeholder}
+          defaultValue={def.default || ""}
+        >
+          {def.options?.map((option) => (
+            <Option key={option.value} value={option.value}>
+              {option.label || option.value}
+            </Option>
+          ))}
+        </Select>
       )}
     </FormControl>
     {/* string input - {slug} <br/> */}
