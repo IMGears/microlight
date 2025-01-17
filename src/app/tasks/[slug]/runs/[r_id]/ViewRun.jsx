@@ -1,5 +1,5 @@
 import PageHeader from "@/components/PageHeader";
-import { Container,Table,Link,Chip,Typography } from "@mui/joy";
+import { Container,Table,Link,Chip,Typography,Sheet,Alert } from "@mui/joy";
 
 function generateBreadcrumbs({task,params}) {
   let breadcrumbs = [
@@ -101,10 +101,79 @@ export function ViewRun({params,task,run}){
           </tr>
         </tbody>
       </Table>
-      <Typography level="title-lg" sx={{mt:3}}>Logs:</Typography>
-      View Run
-      <pre>{JSON.stringify(task,null,2)}</pre>
-      <pre>{JSON.stringify(run,null,2)}</pre>
+      <Typography level="title-lg" sx={{mt:3,mb:1}}>Logs:</Typography>
+      <Sheet sx={{bgcolor:'white'}}>
+        <Table
+          borderAxis="xBetween"
+          size="md"
+          variant="outlined"
+          sx={{
+            border:'1px solid #d9dada',
+            '--TableCell-borderColor': '#ebebeb'
+          }}
+        >
+          <tbody>
+            {run.logs.map((log, index) => (
+              <tr key={index}>
+                <td style={{width:80, padding:14, verticalAlign: 'top'}}>
+                  {new Date(log.timestamp).toLocaleTimeString()}
+                </td>
+                <td style={{ padding:14, verticalAlign: 'top'}}>
+                  {log.markdown ? (
+                    <Alert variant='soft' color="primary" sx={{
+                      p:2,
+                      pb:0,
+                      // bgcolor:'#e3fbe3',
+                      bgcolor:'#f8ffff',
+                      color:'#276f85',
+                      border: '1px solid #a8d4dd',
+                      '& h4, & h3,':{
+                        mt:0,
+                      }
+                    }}>
+                      <div className='' dangerouslySetInnerHTML={{ __html: log.markdown }} />
+                    </Alert>
+                    
+                  ) : log.json ? (
+                    <pre className="json-renderer" style={{ padding: 0, margin: 0 }}>
+                      {JSON.stringify(log.json, null, 2)}
+                    </pre>
+                  ) : log.error ? (
+                    <Alert variant='soft' color="danger" sx={{
+                      p:2,
+                      pb:0,
+                      overflow:'auto',
+                      '&::-webkit-scrollbar': {
+                        display: 'none'
+                      },
+                      scrollbarWidth: 'none',  // Firefox
+                      msOverflowStyle: 'none',  // IE and Edge
+                      // bgcolor:'#e3fbe3',
+                      // bgcolor:'#f8ffff',
+                      // color:'#276f85',
+                      border: '1px solid #e0b4b4',
+                      '& h4, & h3,':{
+                        mt:0,
+                      }
+                    }}>
+                      <div>
+                      <h4 dangerouslySetInnerHTML={{ __html: log.text }} />
+                      {log.text !== log.error && (
+                        <pre style={{ marginTop: 0 }} dangerouslySetInnerHTML={{ __html: log.error }} />
+                      )}
+                      </div>
+                    </Alert>
+                  ) : (
+                    <pre>{log.text}</pre>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Sheet>
+      {/* <pre>{JSON.stringify(task,null,2)}</pre> */}
+      {/* <pre>{JSON.stringify(run,null,2)}</pre> */}
     </Container>
   </>
 }

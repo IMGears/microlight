@@ -13,7 +13,7 @@ export default async function Page({params, searchParams}){
       return task
     },
     getRun:async function(){
-      return await microlightDB.Run.findOne({
+      let run = await microlightDB.Run.findOne({
         where:{
           task:params.slug,
           id:params.r_id,
@@ -22,7 +22,10 @@ export default async function Page({params, searchParams}){
         order:[
           ['updated_at','DESC']
         ]
-      })
+      });
+      run.logs=JSON.parse(run.logs);
+      run.inputs=JSON.parse(run.inputs);
+      return run
     },
   }
   let results = await async.auto(workflow);
