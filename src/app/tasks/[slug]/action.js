@@ -26,7 +26,22 @@ export async function executeTask({formData, task}) {
       },{returning:true})
       return run.toJSON();
     },
-    executeTask:['createRun',async function(results){
+    startRun:['createRun', async function(results){
+      let started_at = new Date();
+      await microlightDB.Runs.update(
+        {
+          status: 'running',
+          started_at:started_at,
+          updated_at:started_at,
+        },
+        {
+          where: { id: results.createRun.id },
+          returning: true
+        }
+      );
+      return started_at;
+    }],
+    executeTask:['startRun',async function(results){
       let params = {
         slug: task.slug
       }
@@ -36,10 +51,14 @@ export async function executeTask({formData, task}) {
       await taskDef.fn(ml,formData);
     }],
     updateRun:['executeTask', async function(results){
+      let update ={
+        status: 'complete',
+        completed_at:new Date(),
+        updated_at:new Date(),
+      }
+      update.duration=update.completed_at-results.startRun;
       return await microlightDB.Runs.update(
-        {
-          status: 'complete'
-        },
+        update,
         {
           where: { id: results.createRun.id },
           returning: true

@@ -45,7 +45,13 @@ export default (sequelize) => {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW
-    }
+    },
+    duration: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+      // defaultValue: sequelize.literal("nextval('stock_consumption_id_seq'::regclass)")
+    },
   }, {
     tableName: 'runs',
     timestamps: false,

@@ -19,6 +19,7 @@ const task = {
       - **Deleted:** 10
       - **Created:** 10
     `);
+    await ml.log("ml.error(new Error('test error'))");
     await ml.error(new Error('test error'))
   }
 };

@@ -95,7 +95,7 @@ export function ViewRun({params,task,run,logs}){
                 {run.status||'pending'}
               </Chip>
             </td>
-            <td style={{textAlign: 'right'}}>{run.duration||0}s</td>
+            <td style={{textAlign: 'right'}}>{run.duration/1000||0}s</td>
             <td>{run.by||'user'}</td>
             {/* <td>{run.user}</td> */}
           </tr>
