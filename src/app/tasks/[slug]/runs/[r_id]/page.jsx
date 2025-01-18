@@ -30,7 +30,7 @@ export default async function Page({params, searchParams}){
         },
         raw:true,
         order:[
-          ['created_at','DESC']
+          ['created_at','ASC']
         ]
       });
       return logs

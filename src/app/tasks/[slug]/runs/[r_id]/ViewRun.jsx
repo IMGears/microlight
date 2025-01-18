@@ -115,8 +115,10 @@ export function ViewRun({params,task,run,logs}){
           <tbody>
             {logs.map((log, index) => (
               <tr key={index}>
-                <td style={{width:80, padding:14, verticalAlign: 'top'}}>
-                  {new Date(log.created_at).toLocaleTimeString()}
+                <td style={{width:90, padding:14, verticalAlign: 'top'}}>
+                  <Typography level="body-sm" fontFamily="monospace">
+                    {new Date(log.created_at).toLocaleTimeString()}
+                  </Typography>
                 </td>
                 <td style={{ padding:14, verticalAlign: 'top'}}>
                   {log.type=='markdown' ? (
@@ -157,14 +159,13 @@ export function ViewRun({params,task,run,logs}){
                       }
                     }}>
                       <div>
-                      <h4 dangerouslySetInnerHTML={{ __html: log.text }} />
-                      {log.text !== log.error && (
-                        <pre style={{ marginTop: 0 }} dangerouslySetInnerHTML={{ __html: log.error }} />
-                      )}
+                      <h4>Error : {JSON.parse(log.content)?.message}</h4>
+                      {JSON.parse(log.content)?.stack}
+                      
                       </div>
                     </Alert>
                   ) : (
-                    <Typography level="body-md">{log.content}</Typography>
+                    <Typography level="body-sm" fontFamily="monospace">{log.content}</Typography>
                   )}
                 </td>
               </tr>

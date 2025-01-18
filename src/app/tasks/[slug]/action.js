@@ -8,6 +8,8 @@ import { importQueue } from "@/lib/queue";
 
 import async from 'async'
 
+
+import generateDisplayfunctions from "@/lib/generateDisplayFunctions";
 export async function executeTask({formData, task}) {
   
 
@@ -30,17 +32,7 @@ export async function executeTask({formData, task}) {
       }
 
       let taskDef = await getTaskDetails({params})
-      let ml = {
-        log:function(text){
-          console.log('will push this log to the db');
-          microlightDB.Logs.create({
-            created_at:new Date(),
-            type:'log',
-            content:text,
-            run:results.createRun.id,
-          })
-        }
-      };
+      const ml = generateDisplayfunctions(results.createRun.id)
       await taskDef.fn(ml,formData);
     }],
     updateRun:['executeTask', async function(results){
