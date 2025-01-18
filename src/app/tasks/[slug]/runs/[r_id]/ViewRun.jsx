@@ -32,7 +32,7 @@ function generateBreadcrumbs({task,params}) {
 
   return breadcrumbs;
 }
-export function ViewRun({params,task,run}){
+export function ViewRun({params,task,run,logs}){
   const breadcrumbs = generateBreadcrumbs({task,params});
   return <>
     <Container>
@@ -113,13 +113,13 @@ export function ViewRun({params,task,run}){
           }}
         >
           <tbody>
-            {run.logs.map((log, index) => (
+            {logs.map((log, index) => (
               <tr key={index}>
                 <td style={{width:80, padding:14, verticalAlign: 'top'}}>
-                  {new Date(log.timestamp).toLocaleTimeString()}
+                  {new Date(log.created_at).toLocaleTimeString()}
                 </td>
                 <td style={{ padding:14, verticalAlign: 'top'}}>
-                  {log.markdown ? (
+                  {log.type=='markdown' ? (
                     <Alert variant='soft' color="primary" sx={{
                       p:2,
                       pb:0,
@@ -131,14 +131,14 @@ export function ViewRun({params,task,run}){
                         mt:0,
                       }
                     }}>
-                      <div className='' dangerouslySetInnerHTML={{ __html: log.markdown }} />
+                      <div className='' dangerouslySetInnerHTML={{ __html: log.content }} />
                     </Alert>
                     
-                  ) : log.json ? (
+                  ) : log.type=='json' ? (
                     <pre className="json-renderer" style={{ padding: 0, margin: 0 }}>
-                      {JSON.stringify(log.json, null, 2)}
+                      {JSON.stringify(JSON.parse(log.content), null, 2)}
                     </pre>
-                  ) : log.error ? (
+                  ) : log.type=='error' ? (
                     <Alert variant='soft' color="danger" sx={{
                       p:2,
                       pb:0,
@@ -164,7 +164,7 @@ export function ViewRun({params,task,run}){
                       </div>
                     </Alert>
                   ) : (
-                    <pre>{log.text}</pre>
+                    <Typography level="body-md">{log.content}</Typography>
                   )}
                 </td>
               </tr>
@@ -172,6 +172,7 @@ export function ViewRun({params,task,run}){
           </tbody>
         </Table>
       </Sheet>
+      <br/>
       {/* <pre>{JSON.stringify(task,null,2)}</pre> */}
       {/* <pre>{JSON.stringify(run,null,2)}</pre> */}
     </Container>

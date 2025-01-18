@@ -13,21 +13,35 @@ export default async function Page({params, searchParams}){
       return task
     },
     getRun:async function(){
-      let run = await microlightDB.Run.findOne({
+      let run = await microlightDB.Runs.findOne({
         where:{
           task:params.slug,
           id:params.r_id,
         },
         raw:true,
-        order:[
-          ['updated_at','DESC']
-        ]
       });
-      run.logs=JSON.parse(run.logs);
       run.inputs=JSON.parse(run.inputs);
       return run
     },
+    getLogs:async function(){
+      let logs = await microlightDB.Logs.findAll({
+        where:{
+          run:params.r_id,
+        },
+        raw:true,
+        order:[
+          ['created_at','DESC']
+        ]
+      });
+      return logs
+    },
   }
   let results = await async.auto(workflow);
-  return <ViewRun params={params} task={results.getTask} run={results.getRun} searchParams={searchParams}/>
+  return <ViewRun 
+    params={params} 
+    searchParams={searchParams}
+    task={results.getTask} 
+    run={results.getRun} 
+    logs={results.getLogs} 
+  />
 }

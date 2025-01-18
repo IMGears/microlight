@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-  return sequelize.define('Run', {
+  return sequelize.define('Runs', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -9,6 +9,10 @@ export default (sequelize) => {
       // defaultValue: sequelize.literal("nextval('stock_consumption_id_seq'::regclass)")
     },
     task: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    status: { // can be pending, running, complete, failed, timeout
       type: DataTypes.TEXT,
       allowNull: true
     },
@@ -24,7 +28,6 @@ export default (sequelize) => {
       type: DataTypes.JSON,
       allowNull: true
     },
-    
     inputs: {
       type: DataTypes.JSON,
       allowNull: true
@@ -44,7 +47,7 @@ export default (sequelize) => {
       defaultValue: DataTypes.NOW
     }
   }, {
-    tableName: 'run',
+    tableName: 'runs',
     timestamps: false,
     // schema: 'public'
   });

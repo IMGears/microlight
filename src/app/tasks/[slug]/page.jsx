@@ -6,6 +6,7 @@ import { orderBy } from "lodash";
 
 export default async function Page({params, searchParams}){
   params = await params;
+  searchParams = await searchParams;
   
   const workflow = {
     getTask:async function(){
@@ -14,7 +15,7 @@ export default async function Page({params, searchParams}){
       return task
     },
     getRuns:async function(){
-      return await microlightDB.Run.findAll({
+      return await microlightDB.Runs.findAll({
         where:{task:params.slug},
         raw:true,
         order:[

@@ -35,6 +35,17 @@ function generateBreadcrumbs({task}) {
   return breadcrumbs;
 }
 
+function chipStatusColor(status){
+  if(status=='complete')
+    return 'success'
+  else if(status=='pending')
+    return 'warning'
+  else if(status=='running')
+    return 'primary'
+  else 
+    return 'danger'
+}
+
 export default function ViewTask({params, task, runs,searchParams}) {
   const breadcrumbs = generateBreadcrumbs({task});
   const [loading,setLoading]=useState(false);
@@ -125,7 +136,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
               <td>
                 <Chip
                   variant="soft"
-                  color={run.status === 'succeeded' ? 'success' : 'danger'}
+                  color={chipStatusColor(run.status)}
                   size="sm"
                 >
                   {run.status||'pending'}
@@ -141,7 +152,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
       {/* Add your task execution UI components here */}
       
       {/* Uncomment for debugging */}
-      <pre>{JSON.stringify(task, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(task, null, 2)}</pre> */}
     </Container>
   );
 }

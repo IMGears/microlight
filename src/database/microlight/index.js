@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-import Run from './tables/Run.model.js';
+import Runs from './tables/Runs.model.js';
+import Logs from './tables/Logs.model.js';
 import sqlite3 from 'sqlite3';
 
 /*======================Initialize Sequelize======================*/
@@ -12,7 +13,8 @@ const sequelize = new Sequelize({
 
 /*======================Initialize models======================*/
 const models = {
-  Run: Run(sequelize),
+  Runs: Runs(sequelize),
+  Logs: Logs(sequelize),
   // Schedule: Schedule(sequelize),
 };
 
