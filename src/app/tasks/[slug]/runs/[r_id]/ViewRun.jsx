@@ -1,5 +1,9 @@
+'use client';
 import PageHeader from "@/components/PageHeader";
 import { Container,Table,Link,Chip,Typography,Sheet,Alert } from "@mui/joy";
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import StatusChip from "@/components/StatusChip";
 
 function generateBreadcrumbs({task,params}) {
   let breadcrumbs = [
@@ -32,8 +36,27 @@ function generateBreadcrumbs({task,params}) {
 
   return breadcrumbs;
 }
-export function ViewRun({params,task,run,logs}){
-  const breadcrumbs = generateBreadcrumbs({task,params});
+export default function ViewRun({params,task,run,logs}){
+  const breadcrumbs = generateBreadcrumbs({task,params})
+  const router = useRouter();
+  
+  useEffect(() => {
+
+    let intervalId;
+    if (run.status === 'running' || run.status === 'pending') {
+      intervalId = setInterval(() => {
+        // Refresh the page data using router.refresh()
+        router.refresh();
+      }, 500);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [run]);
+
   return <>
     <Container>
       <PageHeader 
@@ -86,15 +109,7 @@ export function ViewRun({params,task,run,logs}){
             <td>{new Date(run.created_at).toLocaleString()}</td>
             <td>{run.started_at && new Date(run.started_at).toLocaleString()}</td>
             
-            <td>
-              <Chip
-                variant="soft"
-                color={run.status === 'succeeded' ? 'success' : 'danger'}
-                size="sm"
-              >
-                {run.status||'pending'}
-              </Chip>
-            </td>
+            <td><StatusChip status={run.status} /></td>
             <td style={{textAlign: 'right'}}>{run.duration/1000||0}s</td>
             <td>{run.by||'user'}</td>
             {/* <td>{run.user}</td> */}
@@ -115,12 +130,12 @@ export function ViewRun({params,task,run,logs}){
           <tbody>
             {logs.map((log, index) => (
               <tr key={index}>
-                <td style={{width:90, padding:14, verticalAlign: 'top'}}>
+                <td style={{width:90, padding:7,paddingLeft:14, verticalAlign: 'top',height:'auto'}}>
                   <Typography level="body-sm" fontFamily="monospace">
                     {new Date(log.created_at).toLocaleTimeString()}
                   </Typography>
                 </td>
-                <td style={{ padding:14, verticalAlign: 'top'}}>
+                <td style={{ padding:7, verticalAlign: 'top',height:'auto'}}>
                   {log.type=='markdown' ? (
                     <Alert variant='soft' color="primary" sx={{
                       p:2,

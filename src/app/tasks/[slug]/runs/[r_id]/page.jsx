@@ -1,5 +1,5 @@
 import getTaskDetails from "@/lib/getTaskDetails";
-import { ViewRun } from "./ViewRun";
+import ViewRun from "./ViewRun";
 import async from 'async';
 import microlightDB from "@/database/microlight";
 

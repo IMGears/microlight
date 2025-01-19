@@ -50,6 +50,10 @@ export default function generateDisplayfunctions(run_id){
         content: JSON.stringify(data),
       })
     },
+    wait:async function(time){
+      this.log(`waiting for ${time/1000} secs`);
+      return await new Promise(resolve => setTimeout(resolve, time));
+    }
   };
   return ml;
 }

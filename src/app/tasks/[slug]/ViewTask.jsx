@@ -6,6 +6,7 @@ import MLInput from '@/components/MLInput';
 import { useState } from 'react';
 import { executeTask } from './action';
 import { redirect } from 'next/navigation';
+import StatusChip from '@/components/StatusChip';
 
 function generateBreadcrumbs({task}) {
   let breadcrumbs = [
@@ -35,17 +36,6 @@ function generateBreadcrumbs({task}) {
   return breadcrumbs;
 }
 
-function chipStatusColor(status){
-  if(status=='complete')
-    return 'success'
-  else if(status=='pending')
-    return 'warning'
-  else if(status=='running')
-    return 'primary'
-  else 
-    return 'danger'
-}
-
 export default function ViewTask({params, task, runs,searchParams}) {
   const breadcrumbs = generateBreadcrumbs({task});
   const [loading,setLoading]=useState(false);
@@ -58,8 +48,9 @@ export default function ViewTask({params, task, runs,searchParams}) {
     const formData = new FormData(form);
     let result = await executeTask({formData,task})
     if(result.success)
-      window.location.reload();
-      // redirect(`/tasks/${task.slug}`)
+      // console.log('something went wrong');
+      console.log(`/tasks/${task.slug}/runs/${result.run.id}`)
+      redirect(`/tasks/${task.slug}/runs/${result.run.id}`)
   };
   return (
     <Container>
@@ -134,13 +125,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
                 </Link>
               </td>
               <td>
-                <Chip
-                  variant="soft"
-                  color={chipStatusColor(run.status)}
-                  size="sm"
-                >
-                  {run.status||'pending'}
-                </Chip>
+                <StatusChip status={run.status} />
               </td>
               <td style={{textAlign: 'right'}}>{run.duration/1000||0}s</td>
               <td>{run.by||'user'}</td>
