@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { executeTask } from './action';
 import { redirect } from 'next/navigation';
 import StatusChip from '@/components/StatusChip';
+import cronstrue from 'cronstrue';
+
 
 function generateBreadcrumbs({task}) {
   let breadcrumbs = [
@@ -78,6 +80,69 @@ export default function ViewTask({params, task, runs,searchParams}) {
           </ButtonGroup>
         </form>
       </Card>
+      <Typography level="title-lg" sx={{mt:3}}>Schedules:</Typography>
+
+      <Table 
+        variant='outlined' 
+        aria-label="task runs table" 
+        size='md'
+        sx={{
+          mt: 1,
+          maxWidth: 800,
+          '& th': {
+            height:{
+              sm:"22px",
+              md:"26px",
+              lg:"30px"
+            }
+          },
+          '& td': {
+            height:{
+              sm:"23px",
+              md:"27px",
+              lg:"31px"
+            }
+          }
+        }}
+      >
+        <thead>
+          <tr>
+            {/* <th ></th> */}
+            <th style={{ width: 100 }}>Schedule</th>
+            <th style={{ width: 150 }}>Description</th>
+            <th style={{ width: 300 }}>Payload</th>
+            <th>Is Enabled?</th>
+            {/* <th>User</th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {task.schedules.map((schedule,index) => (
+            <tr key={index}>
+              <td>{schedule.schedule}</td>
+              <td>
+                {cronstrue.toString(schedule.schedule)}
+              </td>
+              <td style={{ 
+                overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  display: 'none'
+                },
+                height:0,
+                scrollbarWidth: 'none',  // Firefox
+                msOverflowStyle: 'none'  // IE and Edge
+              }}>
+                <pre style={{margin:0}}>{JSON.stringify(schedule?.inputs,null,2).slice(2,-2)}</pre>
+              </td>
+              <td>
+                {schedule.is_enabled?'enabled':'disabled'}
+              </td>
+
+              {/* <td>{run.user}</td> */}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
       <Typography level="title-lg" sx={{mt:3}}>Recent runs:</Typography>
       {/* <pre>{JSON.stringify(runs,null,2)}</pre> */}
       
