@@ -116,6 +116,8 @@ export default function ViewRun({params,task,run,logs}){
           </tr>
         </tbody>
       </Table>
+      <Typography level="title-lg" sx={{mt:3,mb:1}}>Payload:</Typography>
+      <pre>{JSON.stringify(run.inputs,null,2)}</pre>
       <Typography level="title-lg" sx={{mt:3,mb:1}}>Logs:</Typography>
       <Sheet sx={{bgcolor:'white'}}>
         <Table

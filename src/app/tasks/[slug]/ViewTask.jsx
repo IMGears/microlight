@@ -67,7 +67,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
         {/* {Object.keys(task.inputs)} */}
         <form onSubmit={handleSubmit}>
           {Object.keys(task.inputs).map((slug)=><>
-            <MLInput key={slug} slug={slug} def={task.inputs[slug]}/>
+            <MLInput key={slug} slug={slug} def={task.inputs[slug]} searchParams={searchParams}/>
           </>)}
           <ButtonGroup spacing={1} >
             {/* <Button type="submit" fullWidth color="primary" variant="solid" startDecorator={<FilterAltIcon />}>Apply filter</Button> */}
@@ -87,7 +87,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
         size='md'
         sx={{
           mt: 1,
-          maxWidth: 600,
+          maxWidth: 800,
           '& th': {
             height:{
               sm:"22px",
@@ -107,8 +107,9 @@ export default function ViewTask({params, task, runs,searchParams}) {
         <thead>
           <tr>
             {/* <th ></th> */}
-            <th style={{ width: '30%' }}>Created At</th>
-            <th style={{ width: '30%' }}>ID</th>
+            <th style={{ width: 100 }}>Created At</th>
+            <th style={{ width: 150 }}>ID</th>
+            <th style={{ width: 300 }}>Payload</th>
             <th>Status</th>
             <th style={{ width: '58px' }}>Duration</th>
             <th>By</th>
@@ -123,6 +124,17 @@ export default function ViewTask({params, task, runs,searchParams}) {
                 <Link href={`/tasks/${params.slug}/runs/${run.id}`} level="body-sm">
                   {task.slug} #{run.id}
                 </Link>
+              </td>
+              <td style={{ 
+                overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  display: 'none'
+                },
+                height:0,
+                scrollbarWidth: 'none',  // Firefox
+                msOverflowStyle: 'none'  // IE and Edge
+              }}>
+                <pre style={{margin:0}}>{JSON.stringify(JSON.parse(run?.inputs),null,1).slice(2,-2)}</pre>
               </td>
               <td>
                 <StatusChip status={run.status} />

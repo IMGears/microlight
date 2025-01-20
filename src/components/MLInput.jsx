@@ -1,6 +1,6 @@
 import { FormControl, FormLabel,Input, Select, Option } from "@mui/joy";
 
-export default function MLInput({def,slug}){
+export default function MLInput({def,slug,searchParams}){
 
   return <>
     <FormControl required={def.required} sx={{mb:2}}>
@@ -10,7 +10,7 @@ export default function MLInput({def,slug}){
           size= "sm"
           name= {slug}
           placeholder= {def.placeholder}
-          defaultValue= {def.default || ""}
+          defaultValue= {searchParams[slug] || def.default || ""}
           type={def.type}
         />
       )}
@@ -27,7 +27,7 @@ export default function MLInput({def,slug}){
           size="sm"
           name={slug}
           placeholder={def.placeholder}
-          defaultValue={def.default || ""}
+          defaultValue= {searchParams[slug] || def.default || ""}
         >
           {def.options?.map((option) => (
             <Option key={option.value} value={option.value}>
