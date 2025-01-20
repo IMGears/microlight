@@ -1,5 +1,33 @@
 import cron from "node-cron";
 import getAllTasks from "./getAllTasks";
+import async from 'async';
+import executeRun from "./executeRun";
+
+async function executeTask({inputs, task}) {
+  
+  const workflow = {
+    createRun:async function(){
+      let run =  await microlightDB.Runs.create({
+        task:task.slug,
+        logs:{},
+        inputs:inputs,
+        triggered_by:'user',
+        status:'pending',
+      },{returning:true})
+      return run.toJSON();
+    },
+    startRun:['createRun', async function(results){
+      process.nextTick(() => executeRun(results.createRun));
+      return;
+    }],
+  }
+  try{
+    const results = await async.auto(workflow);
+    return {success:true,run:results.createRun};
+  }catch(e){
+    return {success:false,error:e}
+  }
+}
 
 
 export default async function loadSchedules() {
@@ -11,16 +39,20 @@ export default async function loadSchedules() {
       task.schedules.forEach(scheduleConfig => {
         if (scheduleConfig.is_enabled && scheduleConfig.schedule) {
           // Create cron job
-          const job = cron.schedule(scheduleConfig.schedule, async () => {
-            try {
-              // Execute task with schedule-specific inputs
-              await task.fn({ log: console.log }, scheduleConfig.inputs || {});
-            } catch (error) {
-              console.error(`Error executing scheduled task ${task.slug}:`, error);
+          const job = cron.schedule(
+            scheduleConfig.schedule, 
+            async () => {
+              try {
+                // Execute task with schedule-specific inputs
+                await executeTask({inputs:scheduleConfig.inputs || {},task})
+              } catch (error) {
+                console.error(`Error executing scheduled task ${task.slug}:`, error);
+              }
+            },
+            {
+              timezone:scheduleConfig.timezone || process.env.CRON_TIMEZONE
             }
-          },{
-            timezone:scheduleConfig.timezone || process.env.CRON_TIMEZONE
-          });
+          );
           schedules.push({
             task,
             schedule: scheduleConfig,

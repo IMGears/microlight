@@ -1,9 +1,11 @@
 import microlightDB from "./database/microlight"
 import async from 'async';
-import loadSchedules from "./lib/loadSchedules";
+// import loadSchedules from "./lib/loadSchedules";
+
 export const register = async () => {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
-
+    // Dynamically import loadSchedules only when we're in Node.js runtime
+    const { default: loadSchedules } = await import('./lib/loadSchedules');
     await loadSchedules();
     // const interval = setInterval(async () => {
     //   await executeRuns();
