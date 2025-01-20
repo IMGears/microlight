@@ -2,6 +2,7 @@ import cron from "node-cron";
 import getAllTasks from "./getAllTasks";
 import async from 'async';
 import executeRun from "./executeRun";
+import microlightDB from "@/database/microlight";
 
 async function executeTask({inputs, task}) {
   
@@ -11,7 +12,7 @@ async function executeTask({inputs, task}) {
         task:task.slug,
         logs:{},
         inputs:inputs,
-        triggered_by:'user',
+        triggered_by:'schedule',
         status:'pending',
       },{returning:true})
       return run.toJSON();
@@ -43,6 +44,7 @@ export default async function loadSchedules() {
             scheduleConfig.schedule, 
             async () => {
               try {
+                console.log('trigger the task')
                 // Execute task with schedule-specific inputs
                 await executeTask({inputs:scheduleConfig.inputs || {},task})
               } catch (error) {

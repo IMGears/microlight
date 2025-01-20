@@ -205,7 +205,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
                 <StatusChip status={run.status} />
               </td>
               <td style={{textAlign: 'right'}}>{run.duration/1000||0}s</td>
-              <td>{run.by||'user'}</td>
+              <td>{run.triggered_by||'user'}</td>
               {/* <td>{run.user}</td> */}
             </tr>
           ))}
