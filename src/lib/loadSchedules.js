@@ -52,7 +52,7 @@ export default async function loadSchedules() {
               }
             },
             {
-              timezone:scheduleConfig.timezone || process.env.CRON_TIMEZONE
+              timezone:scheduleConfig.timezone || process.env.ML_CRON_TIMEZONE
             }
           );
           schedules.push({
