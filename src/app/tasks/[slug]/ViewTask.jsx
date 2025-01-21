@@ -116,7 +116,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
           </tr>
         </thead>
         <tbody>
-          {task.schedules.map((schedule,index) => (
+          {task?.schedules?.map((schedule,index) => (
             <tr key={index}>
               <td>{schedule.schedule}</td>
               <td>
@@ -142,7 +142,6 @@ export default function ViewTask({params, task, runs,searchParams}) {
           ))}
         </tbody>
       </Table>
-
       <Typography level="title-lg" sx={{mt:3}}>Recent runs:</Typography>
       {/* <pre>{JSON.stringify(runs,null,2)}</pre> */}
       

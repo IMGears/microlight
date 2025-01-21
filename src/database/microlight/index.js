@@ -28,8 +28,8 @@ const microlightDB = {
 };
 
 // Only sync database in development mode
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   await microlightDB.sync();
-}
+// }
 
 export default microlightDB;
