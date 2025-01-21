@@ -1,4 +1,3 @@
-Microlight next is a rewrite of microlight in nextjs
 ![Logo](/public/logo500.png)
 
 ## About
