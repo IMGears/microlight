@@ -74,13 +74,13 @@ You should choose one of the alternatives if any of the above points are deal br
 ## Getting Started
 ```shell
 # clone the repo
-git clone git@github.com:IMGears/microlight-next.git
+git clone git@github.com:IMGears/microlight.git
 
-# rename the folder
-mv microlight-next internal-tools-microlight-next
+# rename the folder if required
+mv microlight internal-tools-microlight
 
 # cd
-cd internal-tools-microlight-next
+cd internal-tools-microlight
 
 # rename origin to microlight
 git remote rename origin microlight
@@ -89,7 +89,7 @@ git remote -v
 
 # go to github and create a new repository
 # add new remote origin pointing to newly created repo
-git remote add origin git@github.com:IMGears/internal-tools-microlight-next.git
+git remote add origin git@github.com:IMGears/internal-tools-microlight.git
 
 # push code to origin
 git push -u origin main
