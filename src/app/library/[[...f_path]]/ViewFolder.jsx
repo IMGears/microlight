@@ -1,8 +1,10 @@
 import { Table,Box,Container, Typography } from '@mui/joy';
 
+
 import SendIcon from '@mui/icons-material/Send';
 import FolderIcon from '@mui/icons-material/FolderOutlined';
-import Link from 'next/link'
+
+import Link from '@/components/Link';
 import PageHeader from '@/components/PageHeader';
 
 function generateBreadcrumbs({params}){

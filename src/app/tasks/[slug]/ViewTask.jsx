@@ -1,5 +1,5 @@
 'use client';
-import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Link, Chip } from '@mui/joy';
+import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Chip } from '@mui/joy';
 import PageHeader from '@/components/PageHeader';
 import SendIcon from '@mui/icons-material/Send';
 import MLInput from '@/components/MLInput';
@@ -8,6 +8,7 @@ import { executeTask } from './action';
 import { redirect } from 'next/navigation';
 import StatusChip from '@/components/StatusChip';
 import cronstrue from 'cronstrue';
+import Link from '@/components/Link';
 
 
 function generateBreadcrumbs({task}) {
