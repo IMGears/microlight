@@ -4,7 +4,9 @@ import { Table,Box,Container, Typography } from '@mui/joy';
 import SendIcon from '@mui/icons-material/Send';
 import FolderIcon from '@mui/icons-material/FolderOutlined';
 
-import Link from '@/components/Link';
+// import Link from '@/components/Link';
+
+import {Link} from 'switchless'
 import PageHeader from '@/components/PageHeader';
 
 function generateBreadcrumbs({params}){
@@ -48,7 +50,6 @@ export default function ViewFolder({params,folder,contents,fileList}){
         part2: folder.name
       }}/>
       <Typography level='body-sm'>{folder.description}</Typography>
-     
       <Table sx={{
         pt:1,
         "--Table-headerUnderlineThickness": "2px",

@@ -5,6 +5,7 @@ import microlightDB from "@/database/microlight";
 
 export default async function Page({params, searchParams}){
   params = await params;
+  searchParams = await searchParams;
   
   const workflow = {
     getTask:async function(){
