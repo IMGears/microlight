@@ -29,11 +29,19 @@ export default async function executeRun(run){
 
       let taskDef = await getTaskDetails({params})
       const ml = generateDisplayfunctions(run.id)
-      await taskDef.fn(ml,run.inputs);
+      try{
+        await taskDef.fn(ml,run.inputs);
+        await ml.log('=== ML: run completed ===');
+        return {status:'complete'};
+      }catch(e){
+        await ml.error(e);
+        await ml.log('=== ML: run completed ===');
+        return {status:'failed'};
+      }
     }],
     updateRun:['executeTask', async function(results){
       let update ={
-        status: 'complete',
+        status:results.executeTask?.status,
         completed_at:new Date(),
         updated_at:new Date(),
       }
