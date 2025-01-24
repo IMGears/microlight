@@ -1,5 +1,8 @@
 ![Logo](/public/logo500.png)
 
+- [Docs](/docs/docs.md)
+- [Change Log](/docs/changelog.md)
+
 ## About
 Microlight is a simple task(cron and adhoc) runner. The idea is this, there are tasks that needs to be done. For developers its easy to write a small script to execute the task - e.g. restart AWS redis. But to ask marketing team/sales team to restart redis by running a script is not practical. At the same time, as a small team, the devops guy getting called by the sales team to restart redis is also not practical. 
 
@@ -71,46 +74,4 @@ Compared to these solutions,
 
 You should choose one of the alternatives if any of the above points are deal breakers. 
 
-## Getting Started
-```shell
-# clone the repo
-git clone git@github.com:IMGears/microlight.git
 
-# rename the folder if required
-mv microlight internal-tools-microlight
-
-# cd
-cd internal-tools-microlight
-
-# rename origin to microlight
-git remote rename origin microlight
-# verify that remote has changed
-git remote -v
-
-# go to github and create a new repository
-# add new remote origin pointing to newly created repo
-git remote add origin git@github.com:IMGears/internal-tools-microlight.git
-
-# push code to origin
-git push -u origin main
-
-# start server
-npm run dev
-
-# microlight is a nextjs server. So all nextjs deployment pattern works. 
-```
-
-
-
-## Updating microlight
-
-setup microlight as a remote-tracking branch. You can keep pulling from this branch occasionally and merging the content
-
-```shell
-# Fetch the latest changes
-git fetch microlight
-
-
-# Merge the changes (might require resolving conflicts)
-git merge microlight/main --allow-unrelated-histories
-```
