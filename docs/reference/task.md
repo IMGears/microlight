@@ -68,14 +68,17 @@ The following input types are supported:
 Typical schedule looks like the folowing:
 ```js
 schedule:{
-    crontime:'30 6,12 * * *',
+    schedule:'30 6,12 * * *',
+    is_enabled:true,
     timezone:'Asia/Kolkata',
 },
 ```
 
 | key      | about                                                    | required? | default |
 |----------|----------------------------------------------------------|-----------|---------|
-| crontime | The time at which to schedule task in crontime format    | yes       |         |
+| schedule | The time at which to schedule task in crontime format    | yes       |         |
+| is_enabled | Is this schedule enabled or not                        | no        | false   |
+| inputs   | The variables that will be used when the job runs        | no        | {}      |
 | timezone | Specify the timezone in which to process the crontime in | no        | utc     |
 
 ## fn - the task function
