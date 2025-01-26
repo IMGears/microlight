@@ -8,6 +8,7 @@ module.exports ={
     slug:'check_duplicate_and_missing_por_numbers',
     name: 'Check duplicate and missing POR numbers',
     description: 'Check duplicate and missing POR numbers (Exponent Energy)',
+    is_enabled:true,
     inputs: [],
     schedule:{
         crontime: '15 08 * * *',
@@ -28,6 +29,7 @@ module.exports ={
 | slug | unique key that is used to refer to the task. It should unique across all tasks in all folders | yes |  |
 | name | Human readable name for the task | yes |  |
 | description | Quick description of the task. This will be shown inline with the name of the task | no |  |
+| is_enabled | enable or disable a task | no | false |
 | docs | Write detailed documentation of this task. This will shown on the right side bar in the UI. | no |  |
 | inputs | json object defines configs for inputs that are accepted by this task. The configs also define how the input is displayed in the UI and the validations that will be run | no | {} |
 | schedule | Json object to specify crontime and timezone to run the task on schedule | no | {} |
