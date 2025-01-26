@@ -2,14 +2,30 @@ import { Sequelize } from 'sequelize';
 import Runs from './tables/Runs.model.js';
 import Logs from './tables/Logs.model.js';
 import sqlite3 from 'sqlite3';
+import pg from 'pg';
 
 /*======================Initialize Sequelize======================*/
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'src/database/microlight/data/microlight.db',
-  logging: false,
-  dialectModule: sqlite3
-});
+let sequelize;
+if(process.env.ML_DB_PG){
+  sequelize= new Sequelize(process.env.ML_DB_PG, {
+    logging: false,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true, // This will force the SSL requirement
+        rejectUnauthorized: false // This is to avoid errors due to self-signed certificates
+      }
+    },
+    dialectModule: pg
+  });
+}else{
+  sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: 'src/database/microlight/data/microlight.db',
+    logging: false,
+    dialectModule: sqlite3
+  });
+}
 
 /*======================Initialize models======================*/
 const models = {

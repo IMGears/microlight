@@ -15,13 +15,14 @@ export default async function Page({params, searchParams}){
       return task
     },
     getRuns:async function(){
-      return await microlightDB.Runs.findAll({
-        where:{task:params.slug},
-        raw:true,
-        order:[
+      let runs = await microlightDB.Runs.findAll({
+        where: {task: params.slug},
+        order: [
           ['updated_at','DESC']
         ]
       })
+      runs = runs.map(r => r.toJSON());
+      return runs;
     },
   }
   let results = await async.auto(workflow);

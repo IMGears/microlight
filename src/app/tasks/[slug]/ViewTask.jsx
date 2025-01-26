@@ -199,7 +199,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
                 scrollbarWidth: 'none',  // Firefox
                 msOverflowStyle: 'none'  // IE and Edge
               }}>
-                <pre style={{margin:0}}>{JSON.stringify(JSON.parse(run?.inputs),null,1).slice(2,-2)}</pre>
+                <pre style={{margin:0}}>{JSON.stringify(run?.inputs,null,1).slice(2,-2)}</pre>
               </td>
               <td>
                 <StatusChip status={run.status} />

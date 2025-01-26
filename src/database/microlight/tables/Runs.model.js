@@ -24,13 +24,13 @@ export default (sequelize) => {
       type: DataTypes.DATE,
       allowNull: true
     },
-    logs: {
-      type: DataTypes.JSON,
-      allowNull: true
-    },
     inputs: {
       type: DataTypes.JSON,
-      allowNull: true
+      allowNull: true,
+      get() {
+        const inputs = this.getDataValue('inputs');
+        return inputs ? (typeof inputs === 'string' ? JSON.parse(inputs) : inputs) : null;
+      }
     },
     triggered_by: { // user,api,webhook,schedule
       type: DataTypes.TEXT,

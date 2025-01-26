@@ -19,22 +19,20 @@ export default async function Page({params, searchParams}){
           task:params.slug,
           id:params.r_id,
         },
-        raw:true,
       });
-      run.inputs=JSON.parse(run.inputs);
-      return run
+      return run.toJSON();
     },
     getLogs:async function(){
       let logs = await microlightDB.Logs.findAll({
         where:{
           run:params.r_id,
         },
-        raw:true,
         order:[
           ['created_at','ASC']
         ]
       });
-      return logs
+      logs = logs.map(l => l.toJSON())
+      return logs;
     },
   }
   let results = await async.auto(workflow);
