@@ -36,7 +36,7 @@ export default async function loadSchedules() {
   let schedules=[];
   tasks.forEach(function(task){
     // Check if task has schedules
-    if (task.schedules && Array.isArray(task.schedules)) {
+    if (task.is_enabled && task.schedules && Array.isArray(task.schedules)) {
       task.schedules.forEach(scheduleConfig => {
         if (scheduleConfig.is_enabled && scheduleConfig.schedule) {
           // Create cron job
