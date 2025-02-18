@@ -4,6 +4,7 @@ import { Container,Table,Link,Chip,Typography,Sheet,Alert } from "@mui/joy";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import StatusChip from "@/components/StatusChip";
+import DropdownActions from "./_components/DropdownActions/DropdownActions";
 
 function generateBreadcrumbs({task,params}) {
   let breadcrumbs = [
@@ -12,7 +13,6 @@ function generateBreadcrumbs({task,params}) {
       href: "/library"
     }
   ];
-
   // Add task path segments to breadcrumbs if available
   if (task._folderPath) {
     const f_path = task._folderPath.split('/');
@@ -39,7 +39,11 @@ function generateBreadcrumbs({task,params}) {
 export default function ViewRun({params,task,run,logs}){
   const breadcrumbs = generateBreadcrumbs({task,params})
   const router = useRouter();
-  
+  let RightButtons= function(){
+    return <>
+      <DropdownActions run={run}/>
+    </>
+  }
   useEffect(() => {
 
     let intervalId;
@@ -65,6 +69,7 @@ export default function ViewRun({params,task,run,logs}){
           part1: 'Task Run:',
           part2: task.name
         }}
+        RightButtons={RightButtons}
         // icon={<SendIcon sx={{color: '#6435c9'}} />}
       />
       <Table 
