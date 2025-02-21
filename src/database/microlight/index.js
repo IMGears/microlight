@@ -21,7 +21,7 @@ if(process.env.ML_DB_PG){
 }else{
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'src/database/microlight/data/microlight.db',
+    storage: '.microlight/microlight.db',
     logging: false,
     dialectModule: sqlite3
   });
