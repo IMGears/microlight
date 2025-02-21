@@ -23,7 +23,7 @@ async function getContents({params}){
   let contents =[];
   for (const filename of fileList) {
     const file = project_folder+`${dir}/${filename}`
-    console.log(file);
+    // console.log(file);
     if (fs.statSync(file).isDirectory()) {
       if (fs.existsSync(file+'/microlight.folder.js')){
         let configPath = '';
@@ -62,7 +62,7 @@ async function getContents({params}){
         }
       }
     }
-    console.log(filename);
+    // console.log(filename);
   }
   return contents;
 }
