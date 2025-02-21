@@ -46,6 +46,7 @@ next-env.d.ts
 # microlight
 /src/temp/*
 /src/database/microlight/data/*
+.microlight/microlight.db
 
 
 # gitkeep is always commited

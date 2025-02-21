@@ -3,7 +3,7 @@ const path = require('path');
 
 function copyEnvFile() {
   const sourceEnv = path.join(process.cwd(), '.env');
-  const targetDir = path.join(process.cwd(), '.microlight', 'microlight');
+  const targetDir = path.join(process.cwd(), '.microlight', 'next_server');
   const targetEnv = path.join(targetDir, '.env');
 
   // Create target directory if it doesn't exist
@@ -15,7 +15,7 @@ function copyEnvFile() {
     // Check if source .env exists
     if (fs.existsSync(sourceEnv)) {
       fs.copyFileSync(sourceEnv, targetEnv);
-      console.log('Successfully copied .env file to .microlight/microlight/');
+      console.log('Successfully copied .env file to .microlight/next_server/');
     } else {
       console.warn('No .env file found in root directory');
     }

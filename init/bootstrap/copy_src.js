@@ -25,9 +25,9 @@ function copyDir(src, dest) {
 
 // Move files before initializing Next.js
 const srcDir = './src';
-const destDir = './.microlight/microlight/src';
+const destDir = './.microlight/next_server/src';
 
 if (fs.existsSync(srcDir)) {
   copyDir(srcDir, destDir);
-  console.log('Successfully moved files from /src to .microlight/microlight/src');
+  console.log('Successfully moved files from /src to .microlight/next_server/src');
 }
