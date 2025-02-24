@@ -186,6 +186,22 @@ export default function ViewRun({params,task,run,logs}){
                       
                       </div>
                     </Alert>
+                  ) : log.type=='warn' ? (
+                    <Alert variant='soft' color="warning" sx={{py:1,my:-0.4}}>
+                      {log.content}
+                    </Alert>
+                  ) : log.type=='info' ? (
+                    <Alert variant='soft' color="primary" sx={{py:1,my:-0.4}}>
+                      {log.content}
+                    </Alert>
+                  ) : log.type=='danger' ? (
+                    <Alert variant='soft' color="danger" sx={{py:1,my:-0.4}}>
+                      {log.content}
+                    </Alert>
+                  ) : log.type=='success' ? (
+                    <Alert variant='soft' color="success" sx={{py:1,my:-0.4}}>
+                      {log.content}
+                    </Alert>
                   ) : (
                     <Typography level="body-sm" fontFamily="monospace">{log.content}</Typography>
                   )}

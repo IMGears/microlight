@@ -53,7 +53,39 @@ export default function generateDisplayfunctions(run_id){
     wait:async function(time){
       this.log(`waiting for ${time/1000} secs`);
       return await new Promise(resolve => setTimeout(resolve, time));
-    }
+    },
+    danger:async function(text){
+      await microlightDB.Logs.create({
+        created_at:new Date(),
+        run:run_id,
+        type:'danger',
+        content:text,
+      })
+    },
+    warn:async function(text){
+      await microlightDB.Logs.create({
+        created_at:new Date(),
+        run:run_id,
+        type:'warn',
+        content:text,
+      })
+    },
+    info:async function(text){
+      await microlightDB.Logs.create({
+        created_at:new Date(),
+        run:run_id,
+        type:'info',
+        content:text,
+      })
+    },
+    success:async function(text){
+      await microlightDB.Logs.create({
+        created_at:new Date(),
+        run:run_id,
+        type:'success',
+        content:text,
+      })
+    },
   };
   return ml;
 }

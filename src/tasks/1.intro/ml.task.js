@@ -21,7 +21,11 @@ const task = {
       - **Created:** 10
     `);
     await ml.log("ml.error(new Error('test error'))");
-    await ml.error(new Error('test error'))
+    await ml.error(new Error('test error'));
+    await ml.danger('this is a danger message');
+    await ml.warn('this is a warning message');
+    await ml.info('this is a info message');
+    await ml.success('this is a success message');
   }
 };
 
