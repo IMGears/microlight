@@ -33,6 +33,7 @@ module.exports ={
 | docs | Write detailed documentation of this task. This will shown on the right side bar in the UI. | no |  |
 | inputs | json object defines configs for inputs that are accepted by this task. The configs also define how the input is displayed in the UI and the validations that will be run | no | {} |
 | schedule | Json object to specify crontime and timezone to run the task on schedule | no | {} |
+| links | Array of link objects - {title:'docs',href:'https://docs.cashflowy.io'} | no | [] |
 | fn | function that is executed when the task is triggered. This takes 2 arguments. ml & inputs | yes |  |
 
 
@@ -78,6 +79,25 @@ schedule:{
 |----------|----------------------------------------------------------|-----------|---------|
 | schedule | The time at which to schedule task in crontime format    | yes       |         |
 | is_enabled | Is this schedule enabled or not                        | no        | false   |
+| inputs   | The variables that will be used when the job runs        | no        | {}      |
+| timezone | Specify the timezone in which to process the crontime in | no        | utc     |
+
+
+
+
+## Link
+Typical schedule looks like the folowing:
+```js
+{
+    title:'Docs',
+    href:'https://docs.cashflowy.io',
+},
+```
+
+| key      | about                                                    | required? | default |
+|----------|----------------------------------------------------------|-----------|---------|
+| title    | Title of the link. Visible in the UI                     | yes       |         |
+| href     | Link to redirect user to. opens in a new tab             | no        | false   |
 | inputs   | The variables that will be used when the job runs        | no        | {}      |
 | timezone | Specify the timezone in which to process the crontime in | no        | utc     |
 

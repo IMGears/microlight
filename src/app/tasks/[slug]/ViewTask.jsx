@@ -1,5 +1,6 @@
 'use client';
-import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Chip } from '@mui/joy';
+import OpenInNew from '@mui/icons-material/OpenInNew';
+import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Chip, Link as MuiLink } from '@mui/joy';
 import PageHeader from '@/components/PageHeader';
 import SendIcon from '@mui/icons-material/Send';
 import MLInput from '@/components/MLInput';
@@ -39,10 +40,30 @@ function generateBreadcrumbs({task}) {
   return breadcrumbs;
 }
 
+
+
 export default function ViewTask({params, task, runs,searchParams}) {
   const breadcrumbs = generateBreadcrumbs({task});
   const [loading,setLoading]=useState(false);
-  
+  const RightButtons = function(){
+    return <>
+      {task?.links?.map((link)=>{
+        return <>
+          <MuiLink
+            underline="none"
+            variant="outlined"
+            color="neutral"
+            target='_blank'
+            href={link.href}
+            startDecorator={<OpenInNew fontSize="10px"/>}
+            sx={{ mx:0.5, px: 1, py: 0.5, borderRadius: 'md' }}
+          >
+            {link.title}
+          </MuiLink>
+        </>
+      })}
+    </>
+  }
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,9 +84,12 @@ export default function ViewTask({params, task, runs,searchParams}) {
           part1: 'Task:',
           part2: task.name
         }}
+        RightButtons={RightButtons}
         icon={<SendIcon sx={{color: '#6435c9'}} />}
       />
       <Typography level="body-sm">{task.description}</Typography>
+      
+      
       <Card sx={{mt:2,backgroundColor:'transparent',maxWidth:400}}>
         {/* {Object.keys(task.inputs)} */}
         <form onSubmit={handleSubmit}>
