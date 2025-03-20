@@ -1,13 +1,21 @@
 {
-  "name": "microlight",
+  "name": "@microlight/core",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "next dev",
+    "dev:turbopack": "next dev --turbopack",
+    "build:server": "babel --delete-dir-on-start src --out-dir=dist/server",
+    "build:init": "babel --delete-dir-on-start init --out-dir=dist/init",
+    "build":"npm run build:server && npm run build:init",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "files":[
+    "dist",
+    "index.js"
+  ],
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -26,6 +34,6 @@
     "react-dom": "^19.0.0",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7",
-    "switchless": "^0.19.1"
+    "switchless": "0.19.1"
   }
 }
