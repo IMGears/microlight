@@ -1,0 +1,4 @@
+## History
+airplane.dev had this ability to enable non technical folks to execute tasks which are defined in code. This was super useful. Schedule the task and the task runs like a cron with a visual interface to inspect. Each tasks return meaningful console log as well as user readable output. This because useful for things like upload and process an excel file periodically, option to restart production server etc. can now be done my a non-technical person with a clear SOP. The code or logic is still written by a technical person. 
+
+Airplane.dev has a ton of other features as well. They tried to make the platform no-code. This repo trys to replace Airplane.dev's super code features only. We are calling it "microlight" because like an real airplane, microlights can flight but microlight hardly have any other features or ability than fly. With microlight we have removed 90% of airplane features and retained on 10% of the feature that we actually liked. 
