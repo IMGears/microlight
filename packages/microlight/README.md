@@ -1,7 +1,7 @@
-![Logo](packages/microlight/public/logo500.png)
+![Logo](/public/logo500.png)
 
 - [Docs](/docs/docs.md)
-- [Change Log](packages/microlight/changelog.md)
+- [Change Log](/docs/changelog.md)
 
 ## About
 Microlight is a simple task(cron and adhoc) runner. The idea is this, there are tasks that needs to be done. For developers its easy to write a small script to execute the task - e.g. restart AWS redis. But to ask marketing team/sales team to restart redis by running a script is not practical. At the same time, as a small team, the devops guy getting called by the sales team to restart redis is also not practical. 
