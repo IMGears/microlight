@@ -27,5 +27,8 @@
   "workspaces": [
     "examples/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "glob": "^11.0.1"
+  }
 }

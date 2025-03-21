@@ -1,0 +1,44 @@
+{
+  "name": "@microlight/core",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "dev:turbopack": "next dev --turbopack",
+    "index": "node ./init/bootstrap/index_tasks_and_folders.js",
+    "build:server": "babel --config-file=./babel-configs/dist.babel.config.js src --out-dir=dist/server",
+    "build:scripts": "babel --config-file=./babel-configs/dist.babel.config.js scripts --out-dir=dist/scripts",
+    "build":"rm -rf dist && npm run build:server && npm run build:scripts",
+    "build:next": "next build",
+    "build:tasks:imports": "node ./scripts/generate-task-imports",
+    "build:tasks:index": "node ./scripts/generate-task-index",
+    "build:folders": "node ./scripts/generate-folder-index",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "files":[
+    "dist",
+    "index.js"
+  ],
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/joy": "^5.0.0-beta.51",
+    "async": "^3.2.6",
+    "cronstrue": "^2.53.0",
+    "lodash": "^4.17.21",
+    "markdown-it": "^14.1.0",
+    "next": "15.1.4",
+    "next-nprogress-bar": "^2.4.3",
+    "node-cron": "^3.0.3",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7",
+    "switchless": "0.19.1"
+  }
+}
