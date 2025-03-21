@@ -4,16 +4,19 @@
   "private": true,
   "type":"module",
   "scripts": {
-    "dev": "next dev .microlight/next_server --turbopack",
+    
     "index1": "npx @microlight/core index",
     "index": "npx babel-node ../../node_modules/@microlight/core/dist/init/bootstrap/index_tasks_and_folders.js",
     "bootstrap": "node ../../node_modules/@microlight/core/dist/init/bootstrap/bootstrap.js",
-    "build:tasks:imports": "node ../../node_modules/@microlight/core/dist/scripts/generate-task-imports",
-    "build:tasks:index": "node ../../node_modules/@microlight/core/dist/scripts/generate-task-index",
-    "build:folders": "node ../../node_modules/@microlight/core/dist/scripts/generate-folder-index",
+    "prepare:tasks": "microlight-core prepare tasks",
+    "prepare:folders": "microlight-core prepare folders",
+    "prepare:server": "microlight-core prepare server",
+    "prepare": "microlight-core prepare all",
     "lint": "next lint",
-    "start": "next start .microlight/next_server",
-    "build": "next build .microlight/next_server"
+    "dev": "next dev .microlight/server --turbopack",
+    "dev2": "next dev .microlight/server --turbopack",
+    "start": "next start .microlight/server",
+    "build": "next build .microlight/server"
   },
   "dependencies": {
     "@microlight/core": "*",

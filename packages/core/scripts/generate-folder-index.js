@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { glob } from 'glob';
 import path from 'path';
 import fs from 'fs';

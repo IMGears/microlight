@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { glob } from 'glob';
 import path from 'path';
 // import { join, relative, dirname } from 'path';

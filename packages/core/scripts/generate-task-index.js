@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { glob } from 'glob';
 import path from 'path';
 // import { join, relative, dirname } from 'path';
@@ -53,4 +54,4 @@ if (!fs.existsSync(outputDir)) {
 
 // Write the file
 fs.writeFileSync(outputFile, outputCode, 'utf-8');
-console.log(`Generated import switch at: ${outputFile}`); 
+console.log(`Generated tasks index at: ${outputFile}`); 
