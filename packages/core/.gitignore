@@ -52,3 +52,5 @@ next-env.d.ts
 # gitkeep is always commited
 !.gitkeep
 
+.microlight/*
+temp/*
