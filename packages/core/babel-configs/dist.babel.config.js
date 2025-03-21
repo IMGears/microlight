@@ -11,7 +11,8 @@ export default {
     ["module-resolver", {
       "root": ["./"],
       "alias": {
-        "@": "./src"
+        "@": "./src",
+        "@microlight/local":"./"
       }
     }],
     "@babel/plugin-syntax-jsx"

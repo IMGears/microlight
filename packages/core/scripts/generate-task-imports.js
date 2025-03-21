@@ -5,7 +5,7 @@ import fs from 'fs';
 
 // Ensure we're looking in the right directory relative to the script
 const tasksDir = path.join(process.cwd(), 'src', 'tasks');
-const outputFile = path.resolve(tasksDir, 'importTaskModule.js');
+const outputFile = path.resolve(process.cwd(),'.microlight', 'importTaskModule.js');
 
 // Create tasks directory if it doesn't exist
 if (!fs.existsSync(tasksDir)) {
@@ -31,7 +31,7 @@ const generateImportSwitch = async (tasks) => {
       // return [taskName, task.default];
       // return [task?.default?.slug, {...task?.default,...{file_name:taskName}}];
       
-      return `    case "${taskSlug||taskName}":\n      return await import("@/tasks/${file}");`;
+      return `    case "${taskSlug||taskName}":\n      return await import("../src/tasks/${file}");`;
     })
   )
   cases=cases.join('\n');

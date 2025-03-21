@@ -5,9 +5,10 @@ import fs from 'fs';
 
 // Ensure we're looking in the right directory relative to the script
 const tasksDir = path.join(process.cwd(), 'src', 'tasks');
+const outputFile = path.resolve(process.cwd(),'.microlight', 'folderMap.js');
+const taskMapFile = path.resolve(process.cwd(),'.microlight', 'taskMap.js');
 
-
-const taskMap = (await import(`${tasksDir}/tasks.js`))?.default;
+const taskMap = (await import(taskMapFile))?.default;
 let taskMapByFileName = {}
 Object.keys(taskMap).forEach(function(slug){
   const task = taskMap[slug];
@@ -16,7 +17,7 @@ Object.keys(taskMap).forEach(function(slug){
 
 // console.log(taskMapByFileName);
 
-const outputFile = path.resolve(tasksDir, 'folders.js');
+
 
 
 // Create tasks directory if it doesn't exist

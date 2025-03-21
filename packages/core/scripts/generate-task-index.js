@@ -5,7 +5,7 @@ import fs from 'fs';
 
 // Ensure we're looking in the right directory relative to the script
 const tasksDir = path.join(process.cwd(), 'src', 'tasks');
-const outputFile = path.resolve(tasksDir, 'tasks.js');
+const outputFile = path.resolve(process.cwd(),'.microlight', 'taskMap.js');
 
 // Create tasks directory if it doesn't exist
 if (!fs.existsSync(tasksDir)) {
