@@ -65,7 +65,7 @@ export default function ViewFolder({params,folder,contents,fileList}){
         <tbody>
           {contents.map((content)=>{
             return <>
-              <tr>
+              <tr key={`${content.type}__${content.slug}`}>
                 <td>
                   {content.type=='folder' && <>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -90,7 +90,7 @@ export default function ViewFolder({params,folder,contents,fileList}){
         </tbody>
       </Table>
 
-      <pre>{JSON.stringify(folder,null,2)}</pre>
+      {/* <pre>{JSON.stringify(folder,null,2)}</pre> */}
       {/* <pre>{JSON.stringify(contents,null,2)}</pre> */}
     </Container>
   </>

@@ -1,4 +1,4 @@
-import getTaskDetails from "@/lib/getTaskDetails2";
+import getTaskDetails from "@/lib/getTaskDetails";
 import ViewTask from "./ViewTask";
 import async from 'async';
 import microlightDB from "@/database/microlight";

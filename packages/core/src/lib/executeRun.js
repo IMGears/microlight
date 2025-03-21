@@ -1,6 +1,6 @@
 "use server";
 
-import getTaskDetails from "@/lib/getTaskDetails2";
+import getTaskDetails from "@/lib/getTaskDetails";
 import microlightDB from "@/database/microlight";
 import generateDisplayfunctions from "@/lib/generateDisplayFunctions";
 

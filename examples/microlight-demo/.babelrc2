@@ -10,7 +10,8 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
-        "@": "./src"
+        "@": "./src",
+        "@microlight/local": ["./.microlight"]
       }
     }]
   ]
