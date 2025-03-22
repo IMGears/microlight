@@ -1,9 +1,8 @@
 import cron from "node-cron";
-import getAllTasks from "./getAllTasks";
+import taskMap from "@microlight/local/taskMap";
 import async from 'async';
 import executeRun from "./executeRun";
 import microlightDB from "@/database/microlight";
-import tasks from '@/tasks';
 
 async function executeTask({inputs, task}) {
   
@@ -33,9 +32,9 @@ async function executeTask({inputs, task}) {
 
 
 export default async function loadSchedules() {
-  // const tasks = await getAllTasks();
   let schedules=[];
-  tasks.forEach(function(task){
+  Object.keys(taskMap).forEach(function(task_slug){
+    const task = taskMap[task_slug];
     // Check if task has schedules
     if (task.is_enabled && task.schedules && Array.isArray(task.schedules)) {
       task.schedules.forEach(scheduleConfig => {
