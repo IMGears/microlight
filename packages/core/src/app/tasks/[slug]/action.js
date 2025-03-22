@@ -25,7 +25,7 @@ export async function executeTask({formData, task}) {
   }
   try{
     const results = await async.auto(workflow);
-    console.log(results);
+    // console.log(results);
     revalidatePath(`/tasks/${task.slug}`);
     return {success:true,run:results.createRun};
   }catch(e){

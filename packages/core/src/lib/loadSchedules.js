@@ -44,7 +44,7 @@ export default async function loadSchedules() {
             scheduleConfig.schedule, 
             async () => {
               try {
-                console.log('trigger the task')
+                // console.log('trigger the task')
                 // Execute task with schedule-specific inputs
                 await executeTask({inputs:scheduleConfig.inputs || {},task})
               } catch (error) {
@@ -64,7 +64,7 @@ export default async function loadSchedules() {
       });
     }
   })
-  console.log('Count of schedules :'+schedules.length);
-  console.log(schedules);
+  // console.log('Count of schedules :'+schedules.length);
+  // console.log(schedules);
   return schedules;
 }

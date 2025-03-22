@@ -7,11 +7,11 @@ const project_folder = process.cwd()+'/src/tasks/';
 
 async function getFolderDetails({params}){
   const dir = params?.f_path?.join('/')||'';
-  console.log('\n\n\n\n======');
-  console.log("dir - ",dir);
+  // console.log('\n\n\n\n======');
+  // console.log("dir - ",dir);
   let folderConfig={};
   folderConfig = folderMap[dir];
-  console.log(folderConfig);
+  // console.log(folderConfig);
   // console.log('\n\n\n\n\n===========');
   // console.log(dir)
   // console.log(folderMap)
