@@ -2,6 +2,7 @@ import getTaskDetails from "@/lib/getTaskDetails";
 import ViewRun from "./ViewRun";
 import async from 'async';
 import microlightDB from "@/database/microlight";
+import { notFound } from "next/navigation";
 
 export default async function Page({params, searchParams}){
   params = await params;
@@ -20,6 +21,8 @@ export default async function Page({params, searchParams}){
           id:params.r_id,
         },
       });
+      if(!run)
+        return notFound();
       return run.toJSON();
     },
     getLogs:async function(){

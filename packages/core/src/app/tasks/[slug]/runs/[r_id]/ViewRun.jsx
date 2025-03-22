@@ -44,22 +44,22 @@ export default function ViewRun({params,task,run,logs}){
       <DropdownActions run={run}/>
     </>
   }
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   let intervalId;
-  //   if (run.status === 'running' || run.status === 'pending') {
-  //     intervalId = setInterval(() => {
-  //       // Refresh the page data using router.refresh()
-  //       router.refresh();
-  //     }, 500);
-  //   }
+    let intervalId;
+    if (run.status === 'running' || run.status === 'pending') {
+      intervalId = setInterval(() => {
+        // Refresh the page data using router.refresh()
+        router.refresh();
+      }, 500);
+    }
 
-  //   return () => {
-  //     if (intervalId) {
-  //       clearInterval(intervalId);
-  //     }
-  //   };
-  // }, [run]);
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [run]);
 
   return <>
     <Container>
