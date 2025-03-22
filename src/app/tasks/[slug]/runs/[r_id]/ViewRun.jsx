@@ -159,9 +159,11 @@ export default function ViewRun({params,task,run,logs}){
                     </Alert>
                     
                   ) : log.type=='json' ? (
+                    <div style ={{backgroundColor: '#c6d8f5', height: '300px', overflowY: 'scroll'}}>
                     <pre className="json-renderer" style={{ padding: 0, margin: 0 }}>
                       {JSON.stringify(JSON.parse(log.content), null, 2)}
                     </pre>
+                    </div>
                   ) : log.type=='error' ? (
                     <Alert variant='soft' color="danger" sx={{
                       p:2,
