@@ -1,6 +1,5 @@
 'use client';
 import {Menu,MenuItem,MenuButton,Dropdown} from '@mui/joy'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import * as React from 'react';
 import Button from '@mui/joy/Button';
@@ -50,7 +49,7 @@ export default function DropdownActions({run}){
             event.preventDefault();
             event.stopPropagation();
           }}
-        ><MoreVertIcon size='sm'/></MenuButton>
+        ><i class="fa-solid fa-ellipsis-vertical fa-lg"></i></MenuButton>
         <Menu placement='bottom-end'>
           <MenuItem disabled onClick={onClickCreateVersion}>Rerun job</MenuItem>
           <MenuItem  onClick={onClickCopyRerunAsCurl}>Copy rerun as curl</MenuItem>

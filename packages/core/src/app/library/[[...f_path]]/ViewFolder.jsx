@@ -1,8 +1,10 @@
+'use client';
 import { Table,Box,Container, Typography } from '@mui/joy';
+import React from 'react';
 
 
-import SendIcon from '@mui/icons-material/Send';
-import FolderIcon from '@mui/icons-material/FolderOutlined';
+
+import Icon from '@/components/Icon';
 
 // import Link from '@/components/Link';
 
@@ -64,18 +66,20 @@ export default function ViewFolder({params,folder,contents,fileList}){
         </thead>
         <tbody>
           {contents.map((content)=>{
-            return <>
-              <tr key={`${content.type}__${content.slug}`}>
+            return <React.Fragment key={`${content.type}__${content.slug}`}>
+              <tr >
                 <td>
                   {content.type=='folder' && <>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <FolderIcon  />
-                      <Link href={'/library'+dir+'/'+content.slug}>{content.name}</Link>
+                    {/* <Icon icon='folder' color='#444444'/> */}
+                    <i class="fa-regular fa-folder fa-xl"></i>
+                    <Link href={'/library'+'/'+content.slug}>{content.name}</Link>
                     </Box>
                   </>}
                   {content.type=='task' && <>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <SendIcon sx={{color: '#6435c9'}} />
+                      {/* <Icon icon='send' color='#6435c9'/> */}
+                      <i class="fa-solid fa-paper-plane fa-xl" style={{color:'#6435c9'}}></i>
                       <Link href={'/tasks/'+content.slug}>{content.name}</Link>
                     </Box>
                   </>}
@@ -83,7 +87,7 @@ export default function ViewFolder({params,folder,contents,fileList}){
                 <td>{content.description}</td>
                 <td></td>
               </tr>
-            </>
+            </React.Fragment>
           })}
           
           

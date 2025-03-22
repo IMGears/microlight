@@ -2,7 +2,6 @@
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { Container, Typography, Box, Card, ButtonGroup, Button, Table, Chip, Link as MuiLink } from '@mui/joy';
 import PageHeader from '@/components/PageHeader';
-import SendIcon from '@mui/icons-material/Send';
 import MLInput from '@/components/MLInput';
 import { useState } from 'react';
 import { executeTask } from './action';
@@ -55,7 +54,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
             color="neutral"
             target='_blank'
             href={link.href}
-            startDecorator={<OpenInNew fontSize="10px"/>}
+            startDecorator={<i class="fa-solid fa-up-right-from-square"></i>}
             sx={{ mx:0.5, px: 1, py: 0.5, borderRadius: 'md' }}
           >
             {link.title}
@@ -85,7 +84,6 @@ export default function ViewTask({params, task, runs,searchParams}) {
           part2: task.name
         }}
         RightButtons={RightButtons}
-        icon={<SendIcon sx={{color: '#6435c9'}} />}
       />
       <Typography level="body-sm">{task.description}</Typography>
       

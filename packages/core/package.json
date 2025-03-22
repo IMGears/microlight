@@ -11,13 +11,10 @@
     "build:scripts": "babel --config-file=./babel-configs/dist.babel.config.js scripts --out-dir=dist/scripts",
     "build": "rm -rf dist && npm run build:server && npm run build:scripts",
     "build:next": "next build",
-    
     "prepare:tasks": "microlight-core prepare tasks",
     "prepare:folders": "microlight-core prepare folders",
     "prepare:server": "microlight-core prepare server",
     "prepare": "microlight-core prepare all",
-
-
     "start": "next start",
     "lint": "next lint"
   },
@@ -29,9 +26,6 @@
     "microlight-core": "./bin/microlight-core.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^5.15.15",
     "@mui/joy": "^5.0.0-beta.51",
     "async": "^3.2.6",
     "commander": "^13.1.0",
