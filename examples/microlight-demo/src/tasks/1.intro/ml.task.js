@@ -2,6 +2,7 @@ const task = {
   slug: 'ml',
   name: 'Microlight display functions',
   description: 'Simply prints Hello world',
+  is_enabled:true,
   inputs: {},
   fn: async function (ml, inputs) {
     await ml.log('Microlight exposes a number of display functions. Using this you can display feedback to the user');

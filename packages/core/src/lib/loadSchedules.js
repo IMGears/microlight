@@ -31,12 +31,14 @@ async function executeTask({inputs, task}) {
 }
 
 
-export default async function loadSchedules() {
+export async function loadSchedules() {
   let schedules=[];
   Object.keys(taskMap).forEach(function(task_slug){
     const task = taskMap[task_slug];
+    
     // Check if task has schedules
     if (task.is_enabled && task.schedules && Array.isArray(task.schedules)) {
+      // console.log(task);  
       task.schedules.forEach(scheduleConfig => {
         if (scheduleConfig.is_enabled && scheduleConfig.schedule) {
           // Create cron job
@@ -64,7 +66,7 @@ export default async function loadSchedules() {
       });
     }
   })
-  // console.log('Count of schedules :'+schedules.length);
+  console.log('Count of schedules :'+schedules.length);
   // console.log(schedules);
   return schedules;
 }

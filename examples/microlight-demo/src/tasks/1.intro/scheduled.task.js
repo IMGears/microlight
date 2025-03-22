@@ -4,6 +4,7 @@ const task = {
   slug: 'scheduled',
   name: 'Scheduled task',
   description: 'This task runs every 2 mins',
+  is_enabled:true,
   inputs: {}, // maybe should be called inputFields
   schedules:[
     {

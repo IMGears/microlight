@@ -3,6 +3,7 @@ const task = {
   slug: 'takes_time',
   name: 'Task that takes time to run',
   description: 'Simply prints Hello world',
+  is_enabled:true,
   inputs: {},
   fn: async function (ml, inputs) {
     await ml.log('This task is going to take time complete execution');

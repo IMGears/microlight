@@ -1,6 +1,7 @@
 const task = {
   slug: 'hello_world',
   name: 'Hello World',
+  is_enabled:true,
   description: 'Simply prints Hello world',
   inputs: {
     name:{

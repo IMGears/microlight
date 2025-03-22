@@ -2,7 +2,7 @@
 export const register = async () => {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     // Dynamically import loadSchedules only when we're in Node.js runtime
-    const { default: loadSchedules } = await import('./lib/loadSchedules');
+    const { loadSchedules } = await import('./lib/loadSchedules');
     await loadSchedules();
     // const interval = setInterval(async () => {
     //   await executeRuns();
