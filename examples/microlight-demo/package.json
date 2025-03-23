@@ -1,0 +1,33 @@
+{
+  "name": "@microlight/demo",
+  "version": "0.1.0",
+  "private": true,
+  "type":"module",
+  "scripts": {
+    
+    "index1": "npx @microlight/core index",
+    "index": "npx babel-node ../../node_modules/@microlight/core/dist/init/bootstrap/index_tasks_and_folders.js",
+    "bootstrap": "node ../../node_modules/@microlight/core/dist/init/bootstrap/bootstrap.js",
+    "prepare:tasks": "microlight-core prepare tasks",
+    "prepare:folders": "microlight-core prepare folders",
+    "prepare:server": "microlight-core prepare server",
+    "prepare": "microlight-core prepare all",
+    "lint": "next lint",
+    "dev": "next dev .microlight/server --turbopack",
+    "dev2": "next dev .microlight/server --turbopack",
+    "start": "next start .microlight/server",
+    "predev":"microlight-core prepare all",
+    "prebuild":"microlight-core prepare all",
+    "build": "next build .microlight/server"
+  },
+  "dependencies": {
+    "@microlight/core": "*",
+    "async": "^3.2.6",
+    "dotenv": "^16.4.7",
+    "lodash": "^4.17.21",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  }
+}
