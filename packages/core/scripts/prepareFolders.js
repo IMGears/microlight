@@ -29,6 +29,8 @@ const getFolderFiles=function(){
     // '__ml.js',
     // 'ml.js',
     '**/.mlrc',
+    '**/.ml.json',
+    '**/.mlrc.json',
     // 'ml.folder.js',
     // '**/microlight.folder.js',
     // '**/microlight.folder.json',
