@@ -1,6 +1,6 @@
 {
   "name": "@microlight/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": false,
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "prepare:tasks": "microlight-core prepare tasks",
     "prepare:folders": "microlight-core prepare folders",
     "prepare:server": "microlight-core prepare server",
-    "prepare": "microlight-core prepare all",
+    "prepare2": "microlight-core prepare all",
     "start": "next start",
     "lint": "next lint"
   },
@@ -26,6 +26,7 @@
     "microlight-core": "./bin/microlight-core.js"
   },
   "dependencies": {
+    "@babel/generator": "^7.26.10",
     "@babel/parser": "^7.26.10",
     "@mui/joy": "^5.0.0-beta.51",
     "async": "^3.2.6",

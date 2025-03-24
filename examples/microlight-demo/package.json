@@ -2,7 +2,6 @@
   "name": "@microlight/demo",
   "version": "0.1.0",
   "private": true,
-  "type":"module",
   "scripts": {
     
     "index1": "npx @microlight/core index",
@@ -11,7 +10,7 @@
     "prepare:tasks": "microlight-core prepare tasks",
     "prepare:folders": "microlight-core prepare folders",
     "prepare:server": "microlight-core prepare server",
-    "prepare": "microlight-core prepare all",
+    "prepare2": "microlight-core prepare all",
     "lint": "next lint",
     "dev": "next dev .microlight/server --turbopack",
     "dev2": "next dev .microlight/server --turbopack",

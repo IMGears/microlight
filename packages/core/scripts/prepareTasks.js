@@ -3,6 +3,10 @@ import path from 'path';
 // import { join, relative, dirname } from 'path';
 import fs from 'fs';
 import { parse } from '@babel/parser';
+// import generate from '@babel/generator';
+import generator from '@babel/generator';
+
+
 
 const tasksDir = path.join(process.cwd(), 'src', 'tasks');
 
@@ -55,7 +59,8 @@ ${cases}
 const parseTaskFile = (filePath) => {
   // Read the contents of the file as UTF-8 text
   const content = fs.readFileSync(filePath, 'utf-8');
-  
+  // console.log(filePath);
+  // console.log(content);
   try {
     // Parse the file content into an Abstract Syntax Tree (AST)
     // sourceType: 'module' allows ES6 import/export syntax
@@ -71,7 +76,7 @@ const parseTaskFile = (filePath) => {
     const exportDecl = ast.program.body.find(node => 
       node.type === 'ExportDefaultDeclaration'
     );
-    
+    // console.log(exportDecl);
     // If no export default is found, return null
     if (!exportDecl) return null;
 
@@ -92,6 +97,9 @@ const parseTaskFile = (filePath) => {
       }
     }
 
+    // console.log(objectAst);
+    // fs.writeFileSync('./temp/objectAst.json', JSON.stringify(objectAst,null,2), 'utf-8');
+
     // Convert AST to string, replacing function values with null
     // Convert the AST object to a string, with a custom replacer function
     const cleanObject = JSON.stringify(objectAst, (key, value) => {
@@ -100,24 +108,57 @@ const parseTaskFile = (filePath) => {
           value?.type === 'ArrowFunctionExpression' ||
           value?.type === 'FunctionDeclaration') {
         return null;
+        // return function(){};
       }
       // Keep all other values as is
       return value;
-    });
+    },2);
+    // fs.writeFileSync('./temp/cleanObject.json', cleanObject, 'utf-8');
 
+    
     // Parse the cleaned object to get the final result
     // Parse the string back to an object
     // Replace AST-specific property names with prefixed versions
     // This prevents these technical properties from conflicting with task properties
-    const taskConfig = JSON.parse(cleanObject.replace(/"type":|"start":|"end":|"loc":|"range":/g, '"_$1":'));
+    // let task = {}
+    // cleanObject.properties.forEach(function(node){
+    //   task[node.key.name]='something';
+    // })
+    // const output = generate(JSON.parse(cleanObject), { /* options */ });
+    const output = generator.default(JSON.parse(cleanObject), {
+      jsonCompatible: true,
+      // quotes: 'double',
+      // compact: false
+    });
     
+    // Parse and stringify to remove null values and ensure proper JSON formatting
+    // const jsonOutput = JSON.stringify(
+    //   JSON.parse(output.code, (key, value) => value === null ? undefined : value),
+    //   null,
+    //   2
+    // );
+    output.code = output.code.replace('fn:\n','');
+
+    // let task = JSON.parse(output.code);
+    const task = eval(`(${output.code})`);
+    const jsonString = JSON.stringify(eval(`(${output.code})`), null, 2);
+    // console.log(jsonString);
+
+    // fs.writeFileSync('./temp/output.json', output.code, 'utf-8');
+    // fs.writeFileSync('./temp/jsonString.json', jsonString, 'utf-8');
+    // fs.writeFileSync('./temp/output.json', JSON.stringify(output.code,null,2), 'utf-8');
+
+    const taskConfig = JSON.parse(cleanObject.replace(/"type":|"start":|"end":|"loc":|"range":/g, '"_$1":'));
+    // fs.writeFileSync('./temp/taskConfig.json', JSON.stringify(taskConfig,null,2), 'utf-8');
+    
+    // fs.writeFileSync('./temp/taskConfig.json', JSON.stringify(taskConfig,null,2), 'utf-8');
     // Extract only the properties we care about
     // Remove all the AST-specific properties using destructuring
     // ...finalConfig contains all the remaining properties we want to keep
-    const { _type, _start, _end, _loc, _range, ...finalConfig } = taskConfig;
+    
     
     // Return the clean task configuration object
-    return finalConfig;
+    return task;
 
   } catch (err) {
     // If any error occurs during parsing, log it and return null
@@ -147,7 +188,7 @@ export async function prepareTasksIndex(){
       folderName.pop();
       folderName=folderName.join('/');
       // return [taskName, task.default];
-      return [task?.default?.slug, {...task?.default,...{__file_name:taskName,__folder:folderName}}];
+      return [task?.slug, {...task,...{__file_name:taskName,__folder:folderName}}];
     })
   );
   // console.log(tasks);
@@ -158,8 +199,8 @@ export async function prepareTasksIndex(){
   // console.log(taskMap);
 
   // Write the generated code to a file
-  const outputCode = 'export default '+JSON.stringify(taskMap,null,2);
-  const outputFile = path.resolve(process.cwd(),'.microlight', 'taskMap.js');
+  const outputCode = JSON.stringify(taskMap,null,2);
+  const outputFile = path.resolve(process.cwd(),'.microlight', 'taskMap.json');
   // Create the output directory if it doesn't exist
   const outputDir = path.dirname(outputFile);
   if (!fs.existsSync(outputDir)) {

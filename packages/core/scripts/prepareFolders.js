@@ -4,10 +4,12 @@ import path from 'path';
 import fs from 'fs';
 
 const tasksDir = path.join(process.cwd(), 'src', 'tasks');
-const outputFile = path.resolve(process.cwd(),'.microlight', 'folderMap.js');
-const taskMapFile = path.resolve(process.cwd(),'.microlight', 'taskMap.js');
+const outputFile = path.resolve(process.cwd(),'.microlight', 'folderMap.json');
+const taskMapFile = path.resolve(process.cwd(),'.microlight', 'taskMap.json');
 
-const taskMap = (await import(taskMapFile))?.default;
+
+const taskMap = JSON.parse(fs.readFileSync(taskMapFile, 'utf-8'));
+// const taskMap = (await import(taskMapFile))?.default;
 let taskMapByFileName = {}
 Object.keys(taskMap).forEach(function(slug){
   const task = taskMap[slug];
@@ -24,10 +26,12 @@ const getFolderFiles=function(){
   
   // Find all folder files
   const folderPatterns=[
-    '__ml.js',
-    'ml.js',
-    'ml.folder.js',
-    '**/microlight.folder.js'
+    // '__ml.js',
+    // 'ml.js',
+    '**/.mlrc',
+    // 'ml.folder.js',
+    // '**/microlight.folder.js',
+    // '**/microlight.folder.json',
   ]
 
   const folderFiles = glob.sync(folderPatterns, {
@@ -51,7 +55,11 @@ export async function prepareFolders(){
       folderName.pop();
       folderName=folderName.join('/');
       // console.log(folderName);
-      let folder = (await import(filePath))?.default;
+      // let folder = (await import(filePath))?.default;
+      const folder = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      // let folder = (await parseJSONFromDotJSFile(filePath));
+
+
       // console.log(folder.default);
       // const taskName = path.basename(filePath, '.task.js');
       return [folderName, folder];
@@ -120,7 +128,7 @@ export async function prepareFolders(){
 
 
   // Write the generated code to a file
-  const outputCode = 'export default '+JSON.stringify(folderMap,null,2);
+  const outputCode = JSON.stringify(folderMap,null,2);
 
   // Create the output directory if it doesn't exist
   const outputDir = path.dirname(outputFile);
