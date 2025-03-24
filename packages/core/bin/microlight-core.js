@@ -5,8 +5,8 @@ import path from "path";
 
 import { packageUp } from "package-up";
 
-import { prepareTasks } from "../scripts/prepareTasks.js";
-import { prepareServer } from "../scripts/prepareServer.js";
+import { prepareTasks } from "../dist/scripts/prepareTasks.js";
+import { prepareServer } from "../dist/scripts/prepareServer.js";
 
 
 
@@ -36,7 +36,7 @@ prepareCommand
   .action(async() => {
     await prepareTasks();
     console.log('\n');
-    const { prepareFolders } = await import("../scripts/prepareFolders.js");
+    const { prepareFolders } = await import("../dist/scripts/prepareFolders.js");
     await prepareFolders();
     
     console.log('\n');
@@ -54,7 +54,7 @@ prepareCommand
   .command("folders")
   .description("Index folders")
   .action(async () => {
-    const { prepareFolders } = await import("../scripts/prepareFolders.js");
+    const { prepareFolders } = await import("../dist/scripts/prepareFolders.js");
     await prepareFolders();
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "@microlight/core",
-  "version": "0.3.0",
+  "version": "0.6.1",
   "private": false,
   "type": "module",
   "scripts": {
@@ -37,6 +37,7 @@
     "next": "15.1.4",
     "next-nprogress-bar": "^2.4.3",
     "node-cron": "^3.0.3",
+    "package-up": "^5.0.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "react": "^19.0.0",
