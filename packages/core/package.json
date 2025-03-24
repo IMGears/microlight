@@ -26,10 +26,12 @@
     "microlight-core": "./bin/microlight-core.js"
   },
   "dependencies": {
+    "@babel/parser": "^7.26.10",
     "@mui/joy": "^5.0.0-beta.51",
     "async": "^3.2.6",
     "commander": "^13.1.0",
     "cronstrue": "^2.53.0",
+    "glob": "^11.0.1",
     "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "next": "15.1.4",
