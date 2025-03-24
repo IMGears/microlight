@@ -7,6 +7,7 @@ import { packageUp } from "package-up";
 
 import { prepareTasks } from "../dist/scripts/prepareTasks.js";
 import { prepareServer } from "../dist/scripts/prepareServer.js";
+import { prepareEnvVars } from "../dist/scripts/prepareEnvVars.js";
 
 
 
@@ -41,6 +42,9 @@ prepareCommand
     
     console.log('\n');
     await prepareServer();
+
+    console.log('\n');
+    await prepareEnvVars();
   });
 
 prepareCommand
@@ -64,6 +68,13 @@ prepareCommand
   .description("Setup the server")
   .action(async () => {
     prepareServer();
+  });
+
+  prepareCommand
+  .command("env")
+  .description("Setup the env vars")
+  .action(async () => {
+    prepareEnvVars();
   });
 
 // Parse CLI arguments
