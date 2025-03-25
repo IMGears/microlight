@@ -8,7 +8,8 @@ import {packageUp} from 'package-up';
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); // Required for resolving CommonJS modules
-
+const coreModulePath = require.resolve("@microlight/cli/package.json"); // Find package.json
+const coreRoot = path.dirname(coreModulePath); // Get package root
 
 
 const program = new Command();
@@ -34,8 +35,10 @@ const newCommand = program
 newCommand.action((projectName) => {
   console.log(`Creating a new project: ${projectName}`);
   
+  
+  const templateDir = path.join(coreRoot, "new", "project"); // Resolve /new/folder
+
   const targetDir = path.join(process.cwd(), projectName);
-  const templateDir = path.join(currentDir, './new/project');
 
   // Check if directory already exists
   if (fs.existsSync(targetDir)) {
@@ -81,9 +84,31 @@ listTasksCommand.action(async() => {
   console.log(taskFiles);
 });
 
-const newTaskCommand = taskCommand.command("new <taskName>").description("Create a task")
+const newTaskCommand = taskCommand.command("new").description("Create a task")
 newTaskCommand.action(() => {
-  console.log("Creating a new task...");
+  console.log(`Creating a new task: `);
+  const targetFile = path.join(process.cwd(),'hello_world.task.js');
+  if (fs.existsSync(targetFile)) {
+    console.log(`Hello world task already exists. Skipping task creation`);
+    process.exit(1);
+  }
+  
+  // Create the project directory
+  try {
+    
+
+    const templateDir = path.join(coreRoot, "new", "task"); // Resolve /new/task
+    // console.log(templateDir);
+    // Copy template files recursively
+    fs.cpSync(templateDir, process.cwd(), { 
+      recursive: true,
+      force: false // Don't overwrite existing files
+    });
+    console.log(`Created new task - helloworld.task.js`);
+  } catch (error) {  
+    console.error('Error creating task:', error.message);
+    process.exit(1);
+  }
 });
 
 // Define `folders` subcommands
@@ -114,18 +139,14 @@ createFolderCommand.action((folderName) => {
     
     fs.mkdirSync(targetDir, { recursive: true });
 
-    const coreModulePath = require.resolve("@microlight/cli/package.json"); // Find package.json
-    const coreRoot = path.dirname(coreModulePath); // Get package root
-    console.log(coreModulePath);
-    console.log(coreRoot);
     const templateDir = path.join(coreRoot, "new", "folder"); // Resolve /new/folder
-    console.log(templateDir);
+    // console.log(templateDir);
     // Copy template files recursively
     fs.cpSync(templateDir, targetDir, { 
       recursive: true,
       force: false // Don't overwrite existing files
     });
-    console.log(`Created new folder - ${folderName}`);
+    console.log(`Created new folder - ${targetDir}`);
   } catch (error) {  
     console.error('Error creating folder:', error.message);
     process.exit(1);
