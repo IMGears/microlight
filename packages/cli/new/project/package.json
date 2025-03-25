@@ -1,0 +1,26 @@
+{
+  "name": "@microlight/demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    
+    "prepare:tasks": "microlight-core prepare tasks",
+    "prepare:folders": "microlight-core prepare folders",
+    "prepare:server": "microlight-core prepare server",
+    "prepare:all": "microlight-core prepare all",
+    "lint": "next lint",
+    "dev": "next dev .microlight/server --turbopack", 
+    "start": "next start .microlight/server",
+    "predev":"microlight-core prepare all",
+    "prebuild":"microlight-core prepare all",
+    "build": "next build .microlight/server"
+  },
+  "dependencies": {
+    "@microlight/core": "0.9.0",
+    "async": "^3.2.6",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  }
+}
