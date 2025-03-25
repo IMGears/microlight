@@ -17,7 +17,7 @@ export default {
     }],
     "@babel/plugin-syntax-jsx"
   ],
-  "ignore": ["./src/tasks/**/*"]
+  "ignore": ["../src/tasks/**/*"] // relative to this file location
   
   // "sourceMaps": true,
   // "sourceRoot": "./src",
