@@ -54,7 +54,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
             color="neutral"
             target='_blank'
             href={link.href}
-            startDecorator={<i class="fa-solid fa-up-right-from-square"></i>}
+            startDecorator={<i className="fa-solid fa-up-right-from-square"></i>}
             sx={{ mx:0.5, px: 1, py: 0.5, borderRadius: 'md' }}
           >
             {link.title}
