@@ -35,7 +35,7 @@ const generateImportSwitch = async (tasks) => {
       const task = await parseTaskFile(filePath);
       // console.log(task);
       const taskName = path.basename(file, '.task.js');
-      const taskSlug=task?.default?.slug;
+      const taskSlug=task?.slug;
       // const taskName = path.basename(filePath, '.task.js');
       // return [taskName, task.default];
       // return [task?.default?.slug, {...task?.default,...{file_name:taskName}}];
