@@ -14,8 +14,8 @@ function generateBreadcrumbs({task,params}) {
     }
   ];
   // Add task path segments to breadcrumbs if available
-  if (task._folderPath) {
-    const f_path = task._folderPath.split('/');
+  if (task.__folder) {
+    const f_path = task.__folder.split('/');
     let folderPath = '/library';
     
     f_path.forEach((folder, index) => {

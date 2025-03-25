@@ -20,8 +20,8 @@ function generateBreadcrumbs({task}) {
   ];
 
   // Add task path segments to breadcrumbs if available
-  if (task._folderPath) {
-    const f_path = task._folderPath.split('/');
+  if (task.__folder) {
+    const f_path = task.__folder.split('/');
     let folderPath = '/library';
     
     f_path.forEach((folder, index) => {
@@ -89,7 +89,6 @@ export default function ViewTask({params, task, runs,searchParams}) {
       
       
       <Card sx={{mt:2,backgroundColor:'transparent',maxWidth:400}}>
-        {/* {Object.keys(task.inputs)} */}
         <form onSubmit={handleSubmit}>
           {Object.keys(task.inputs).map((slug)=><>
             <MLInput key={slug} slug={slug} def={task.inputs[slug]} searchParams={searchParams}/>
