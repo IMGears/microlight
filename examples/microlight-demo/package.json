@@ -10,7 +10,7 @@
     "prepare:tasks": "microlight-core prepare tasks",
     "prepare:folders": "microlight-core prepare folders",
     "prepare:server": "microlight-core prepare server",
-    "prepare2": "microlight-core prepare all",
+    "prepare:all": "microlight-core prepare all",
     "lint": "next lint",
     "dev": "next dev .microlight/server --turbopack",
     "dev2": "next dev .microlight/server --turbopack",
