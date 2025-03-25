@@ -14,10 +14,21 @@ const coreRoot = path.dirname(coreModulePath); // Get package root
 
 const program = new Command();
 
-let basePath = await packageUp();
-basePath=basePath.split('/');
-basePath.pop();
-const tasksDir = path.join('/',...basePath, 'src','tasks');
+const getTasksDir = async function(){
+  // console.log('getTasksDir\n\n\n======')
+  let basePath = await packageUp();
+  if(basePath){
+    // console.log(basePath)
+    basePath=basePath.split('/');
+    basePath.pop();
+    const tasksDir = path.join('/',...basePath, 'src','tasks');
+    return tasksDir;
+  }else{
+    return process.cwd();
+  }
+}
+
+
 
 // Create dirname equivalent for ES modules
 const currentDir = new URL('.', import.meta.url).pathname;
@@ -74,8 +85,9 @@ const taskCommand = program
 
 const listTasksCommand = taskCommand.command("ls").description("List tasks");
 listTasksCommand.action(async() => {
+  const tasksDir = await getTasksDir();
+  // console.log('taskDir -',tasksDir);
   console.log("Listing all tasks...");
-  console.log('taskDir -',tasksDir);
   // Find all task files
   const taskFiles = glob.sync('**/*.task.js', {
     cwd: tasksDir,
