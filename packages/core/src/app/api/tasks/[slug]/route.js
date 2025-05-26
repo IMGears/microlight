@@ -7,13 +7,12 @@ export async function POST(request, { params }) {
 
     // Extract query parameters
     const url = new URL(request.url);
-    const date = url.searchParams.get('date');
-    const filename = url.searchParams.get('filename');
 
     // Create FormData-like object with the query parameters
     const formData = new FormData();
-    formData.append('date', date);
-    formData.append('filename', filename);
+    for (const [key, value] of url.searchParams.entries()) {
+      formData.append(key, value);
+    }
 
     // Create task object using the dynamic slug
     const task = {
