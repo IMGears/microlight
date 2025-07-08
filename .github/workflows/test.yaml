@@ -22,8 +22,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Change Directory
-      run: cd packages/core
-
     - name: Run tests
-      run: npm test -- --coverage
+      run: |
+        cd packages/core
+        npm test -- --coverage
