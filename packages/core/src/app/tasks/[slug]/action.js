@@ -19,6 +19,7 @@ export async function executeTask({formData, task}) {
       return run.toJSON();
     },
     startRun:['createRun', async function(results){
+      results.createRun.inputs = Object.fromEntries(formData?.entries());  // This is a file object and not being propelry serialized by run.toJSON()
       process.nextTick(() => executeRun(results.createRun));
       return;
     }],
