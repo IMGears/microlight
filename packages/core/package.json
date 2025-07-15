@@ -1,6 +1,6 @@
 {
   "name": "@microlight/core",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "private": false,
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "prepare:server": "microlight-core prepare server",
     "prepare2": "microlight-core prepare all",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "files": [
     "dist",
@@ -46,5 +47,11 @@
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7",
     "switchless": "0.19.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "jest": "^30.0.4"
   }
 }
