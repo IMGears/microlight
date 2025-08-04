@@ -153,7 +153,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
                 scrollbarWidth: 'none',  // Firefox
                 msOverflowStyle: 'none'  // IE and Edge
               }}>
-                <pre style={{margin:0}}>{JSON.stringify(schedule?.inputs,null,2).slice(2,-2)}</pre>
+                <pre style={{margin:0}}>{schedule?.inputs ? JSON.stringify(schedule?.inputs, null, 2).slice(2, -2) : ""}</pre>
               </td>
               <td>
                 {schedule.is_enabled?'enabled':'disabled'}
