@@ -16,7 +16,9 @@ export default {
             node: "current"
           }
         }],
-        "@babel/preset-react"
+        ['@babel/preset-react', {
+          runtime: 'automatic' // This enables the new JSX transform
+        }]
       ],
       plugins: [
         ["module-resolver", {
