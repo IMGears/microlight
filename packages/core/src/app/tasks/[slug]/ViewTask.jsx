@@ -46,26 +46,27 @@ export default function ViewTask({params, task, runs,searchParams}) {
   const [loading,setLoading]=useState(false);
   const RightButtons = function(){
     return <>
-      {task?.links?.map((link)=>{
-        return <>
+      {task?.links?.map((link, index)=>{
+        return( 
           <MuiLink
+            key={index}
             underline="none"
             variant="outlined"
             color="neutral"
             target='_blank'
             href={link.href}
-            startDecorator={<i class="fa-solid fa-up-right-from-square"></i>}
+            startDecorator={<i className="fa-solid fa-up-right-from-square"></i>}
             sx={{ mx:0.5, px: 1, py: 0.5, borderRadius: 'md' }}
           >
             {link.title}
-          </MuiLink>
-        </>
+          </MuiLink>)
       })}
     </>
   }
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('button clicked and fire evenet triggered')
     setLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -90,9 +91,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
       
       <Card sx={{mt:2,backgroundColor:'transparent',maxWidth:400}}>
         <form onSubmit={handleSubmit}>
-          {Object.keys(task.inputs).map((slug)=><>
-            <MLInput key={slug} slug={slug} def={task.inputs[slug]} searchParams={searchParams}/>
-          </>)}
+          {Object.keys(task.inputs).map((slug)=> <MLInput key={slug} slug={slug} def={task.inputs[slug]} searchParams={searchParams}/>)}
           <ButtonGroup spacing={1} >
             {/* <Button type="submit" fullWidth color="primary" variant="solid" startDecorator={<FilterAltIcon />}>Apply filter</Button> */}
             <Button loading={loading} disabled={loading} type="submit" color='primary'  variant="solid">Execute task</Button>
@@ -146,7 +145,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
               </td>
               <td style={{ 
                 overflow: 'auto',
-                '&::-webkit-scrollbar': {
+                '&::WebkitScrollbar': {
                   display: 'none'
                 },
                 height:0,
@@ -213,7 +212,7 @@ export default function ViewTask({params, task, runs,searchParams}) {
               </td>
               <td style={{ 
                 overflow: 'auto',
-                '&::-webkit-scrollbar': {
+                '&::WebkitScrollbar': {
                   display: 'none'
                 },
                 height:0,
