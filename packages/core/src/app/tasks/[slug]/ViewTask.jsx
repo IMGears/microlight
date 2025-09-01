@@ -66,14 +66,11 @@ export default function ViewTask({params, task, runs,searchParams}) {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('button clicked and fire evenet triggered')
     setLoading(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     let result = await executeTask({formData,task})
     if(result.success)
-      // console.log('something went wrong');
-      console.log(`/tasks/${task.slug}/runs/${result.run.id}`)
       redirect(`/tasks/${task.slug}/runs/${result.run.id}`)
   };
   return (
