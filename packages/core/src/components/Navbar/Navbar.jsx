@@ -1,9 +1,14 @@
 'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 // import Logo from '../Logo';
-import { Box, Sheet,  } from '@mui/joy';
+import { Box, Sheet, Button } from '@mui/joy';
+
 export default function Navbar({ user, signOut }) {
+	const pathname = usePathname();
+
 	return (
-		
 		<Sheet
 			component="nav"
 			sx={{
@@ -25,9 +30,33 @@ export default function Navbar({ user, signOut }) {
 				// bgcolor: 'white',
 			}}
 		>
-			<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 				{/* <Logo offering='Transactions' /> */}
-				Microlight
+				<Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+					<Box sx={{ fontWeight: 'bold' }}>Microlight</Box>
+				</Link>
+
+				<Box sx={{ display: 'flex', gap: 1 }}>
+					<Link href="/library" style={{ textDecoration: 'none' }}>
+						<Button
+							variant={pathname?.startsWith('/library') ? 'solid' : 'plain'}
+							size="sm"
+							color="neutral"
+						>
+							Library
+						</Button>
+					</Link>
+
+					<Link href="/monitoring" style={{ textDecoration: 'none' }}>
+						<Button
+							variant={pathname?.startsWith('/monitoring') ? 'solid' : 'plain'}
+							size="sm"
+							color="neutral"
+						>
+							Monitoring
+						</Button>
+					</Link>
+				</Box>
 			</Box>
 
 		</Sheet>
