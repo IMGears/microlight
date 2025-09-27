@@ -1,4 +1,5 @@
 export default {
+  testEnvironment: 'jsdom',
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,ts}',
