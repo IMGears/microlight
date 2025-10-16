@@ -5,12 +5,12 @@ import microlightDB from '../../database/microlight/index.js';
 export async function getOverviewData() {
   try {
     // Get overview statistics
-    const totalRunsResult = await microlightDB.sequelize.query(
+    const total_runs_result = await microlightDB.sequelize.query(
       'SELECT COUNT(*) as count FROM runs',
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    const statusStatsResult = await microlightDB.sequelize.query(
+    const status_stats_result = await microlightDB.sequelize.query(
       `SELECT
         status,
         COUNT(*) as count
@@ -19,7 +19,7 @@ export async function getOverviewData() {
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    const recentFailuresResult = await microlightDB.sequelize.query(
+    const recent_failures_result = await microlightDB.sequelize.query(
       `SELECT COUNT(*) as count
       FROM runs
       WHERE status = 'failed'
@@ -27,19 +27,19 @@ export async function getOverviewData() {
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    const totalRuns = totalRunsResult[0]?.count || 0;
-    const successfulRuns = statusStatsResult.find(s => s.status === 'complete')?.count || 0;
-    const runningTasks = statusStatsResult.find(s => s.status === 'running')?.count || 0;
-    const recentFailures = recentFailuresResult[0]?.count || 0;
+    const total_runs = total_runs_result[0]?.count || 0;
+    const successful_runs = status_stats_result.find(s => s.status === 'complete')?.count || 0;
+    const running_tasks = status_stats_result.find(s => s.status === 'running')?.count || 0;
+    const recent_failures = recent_failures_result[0]?.count || 0;
 
-    const successRate = totalRuns > 0 ? (successfulRuns / totalRuns) * 100 : 0;
+    const success_rate = total_runs > 0 ? (successful_runs / total_runs) * 100 : 0;
 
     return {
-      totalRuns,
-      successRate,
-      runningTasks,
-      recentFailures,
-      statusBreakdown: statusStatsResult
+      totalRuns: total_runs,
+      successRate: success_rate,
+      runningTasks: running_tasks,
+      recentFailures: recent_failures,
+      statusBreakdown: status_stats_result
     };
   } catch (error) {
     console.error('Error fetching overview:', error);
@@ -50,7 +50,7 @@ export async function getOverviewData() {
 export async function getTasksData() {
   try {
     // Get task statistics
-    const taskStatsResult = await microlightDB.sequelize.query(
+    const task_stats_result = await microlightDB.sequelize.query(
       `SELECT
         task,
         COUNT(*) as totalRuns,
@@ -71,7 +71,7 @@ export async function getTasksData() {
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    return taskStatsResult.map(task => ({
+    return task_stats_result.map(task => ({
       ...task,
       successRate: task.totalRuns > 0 ? (task.successfulRuns / task.totalRuns) * 100 : 0
     }));
@@ -85,22 +85,22 @@ export async function getRunsData(filters = {}) {
   try {
     const { status, task, limit = 50 } = filters;
 
-    let whereClause = '';
-    const whereConditions = [];
+    let where_clause = '';
+    const where_conditions = [];
 
     if (status && status !== 'all') {
-      whereConditions.push(`status = '${status}'`);
+      where_conditions.push(`status = '${status}'`);
     }
 
     if (task && task.trim() !== '') {
-      whereConditions.push(`task LIKE '%${task}%'`);
+      where_conditions.push(`task LIKE '%${task}%'`);
     }
 
-    if (whereConditions.length > 0) {
-      whereClause = `WHERE ${whereConditions.join(' AND ')}`;
+    if (where_conditions.length > 0) {
+      where_clause = `WHERE ${where_conditions.join(' AND ')}`;
     }
 
-    const runsResult = await microlightDB.sequelize.query(
+    const runs_result = await microlightDB.sequelize.query(
       `SELECT
         id,
         task,
@@ -111,13 +111,13 @@ export async function getRunsData(filters = {}) {
         triggered_by,
         inputs
       FROM runs
-      ${whereClause}
+      ${where_clause}
       ORDER BY started_at DESC
       LIMIT ${limit}`,
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    return runsResult;
+    return runs_result;
   } catch (error) {
     console.error('Error fetching runs:', error);
     throw new Error('Failed to fetch runs data');
@@ -128,22 +128,22 @@ export async function getLogsData(filters = {}) {
   try {
     const { runId, type, limit = 100 } = filters;
 
-    let whereClause = '';
-    const whereConditions = [];
+    let where_clause = '';
+    const where_conditions = [];
 
     if (runId) {
-      whereConditions.push(`run = ${runId}`);
+      where_conditions.push(`run = ${runId}`);
     }
 
     if (type && type !== 'all') {
-      whereConditions.push(`type = '${type}'`);
+      where_conditions.push(`type = '${type}'`);
     }
 
-    if (whereConditions.length > 0) {
-      whereClause = `WHERE ${whereConditions.join(' AND ')}`;
+    if (where_conditions.length > 0) {
+      where_clause = `WHERE ${where_conditions.join(' AND ')}`;
     }
 
-    const logsResult = await microlightDB.sequelize.query(
+    const logs_result = await microlightDB.sequelize.query(
       `SELECT
         l.id,
         l.created_at,
@@ -153,13 +153,13 @@ export async function getLogsData(filters = {}) {
         r.task
       FROM logs l
       LEFT JOIN runs r ON l.run = r.id
-      ${whereClause}
+      ${where_clause}
       ORDER BY l.created_at DESC
       LIMIT ${limit}`,
       { type: microlightDB.sequelize.QueryTypes.SELECT }
     );
 
-    return logsResult;
+    return logs_result;
   } catch (error) {
     console.error('Error fetching logs:', error);
     throw new Error('Failed to fetch logs data');

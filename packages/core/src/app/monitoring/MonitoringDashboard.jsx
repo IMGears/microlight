@@ -55,12 +55,15 @@ export default function MonitoringDashboard() {
     }
   };
 
+  const DEFAULT_RUNS_LIMIT = 50;
+  const DEFAULT_LOGS_LIMIT = 100;
+
   const fetchRecentRuns = async () => {
     try {
       const data = await getRunsData({
         status: filters.status,
         task: filters.task,
-        limit: 50
+        limit: DEFAULT_RUNS_LIMIT
       });
       setRecentRuns(data);
     } catch (error) {
@@ -70,7 +73,7 @@ export default function MonitoringDashboard() {
 
   const fetchLogs = async () => {
     try {
-      const data = await getLogsData({ limit: 100 });
+      const data = await getLogsData({ limit: DEFAULT_LOGS_LIMIT });
       setLogs(data);
     } catch (error) {
       console.error('Failed to fetch logs:', error);
@@ -92,10 +95,12 @@ export default function MonitoringDashboard() {
     refreshAll();
   }, [filters]);
 
+  const REFRESH_INTERVAL = 30000; // Refresh every 30 seconds
+
   useEffect(() => {
     let interval;
     if (autoRefresh) {
-      interval = setInterval(refreshAll, 30000); // Refresh every 30 seconds
+      interval = setInterval(refreshAll, REFRESH_INTERVAL);
     }
     return () => {
       if (interval) clearInterval(interval);
