@@ -5,7 +5,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MonitoringDashboard from '@/app/monitoring/MonitoringDashboard';
-import * as actions from '@/app/monitoring/actions';
+import * as actions from '@/app/monitoring/action';
 
 // Mock the actions module
 jest.mock('@/app/monitoring/actions', () => ({

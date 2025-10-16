@@ -1,7 +1,7 @@
 /**
  * Tests for monitoring actions that interact with the database
  */
-import { getOverviewData, getTasksData, getRunsData, getLogsData } from '@/app/monitoring/actions';
+import { getOverviewData, getTasksData, getRunsData, getLogsData } from '@/app/monitoring/action';
 import microlightDB from '@/database/microlight/index.js';
 
 // Mock the database
