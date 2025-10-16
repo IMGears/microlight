@@ -22,7 +22,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { getOverviewData, getTasksData, getRunsData, getLogsData } from './actions';
+import { getOverviewData, getTasksData, getRunsData, getLogsData } from './action';
 
 export default function MonitoringDashboard() {
   const [overview, setOverview] = useState(null);
