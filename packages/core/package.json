@@ -51,7 +51,6 @@
     "switchless": "0.19.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "babel-plugin-module-resolver": "^5.0.2",
