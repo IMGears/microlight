@@ -8,7 +8,7 @@ import MonitoringDashboard from '@/app/monitoring/MonitoringDashboard';
 import * as actions from '@/app/monitoring/action';
 
 // Mock the actions module
-jest.mock('@/app/monitoring/actions', () => ({
+jest.mock('@/app/monitoring/action', () => ({
   getOverviewData: jest.fn(),
   getTasksData: jest.fn(),
   getRunsData: jest.fn(),
