@@ -17,7 +17,9 @@ export default function MLInput({def,slug,searchParams}){
       {def.type === 'file' && (
         // Placeholder for future file input implementation
         <Input 
-          {...commonProps}
+          size="sm"
+          name={slug}
+          placeholder={def.placeholder}
           type="file"
           // Add any file-specific props here
         />

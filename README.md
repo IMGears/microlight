@@ -3,6 +3,25 @@
 - [Docs](/docs/docs.md)
 - [Change Log](packages/microlight/changelog.md)
 
+## Getting started
+```shell
+# Create new project using @microlight/cli
+npx @microlight/cli new internal-tools-microlight
+
+# cd
+cd internal-tools-microlight
+
+# install all dependancies
+npm install
+
+# start server
+npm run dev
+# microlight is a nextjs server. So all nextjs deployment pattern works. 
+```
+Read the [docs](/docs/docs.md) for more instructions.
+
+
+
 ## About
 Microlight is a simple task(cron and adhoc) runner. The idea is this, there are tasks that needs to be done. For developers its easy to write a small script to execute the task - e.g. restart AWS redis. But to ask marketing team/sales team to restart redis by running a script is not practical. At the same time, as a small team, the devops guy getting called by the sales team to restart redis is also not practical. 
 
