@@ -1,12 +1,14 @@
 'use client';
-import { Table,Box,Container, Typography } from '@mui/joy';
 import React from 'react';
-
-
-
-import Icon from '@/components/Icon';
-
-// import Link from '@/components/Link';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Container } from "@/components/ui/container";
 
 import {Link} from 'switchless'
 import PageHeader from '@/components/PageHeader';
@@ -51,48 +53,40 @@ export default function ViewFolder({params,folder,contents,fileList}){
         part1: 'Folder:',
         part2: folder.name
       }}/>
-      <Typography level='body-sm'>{folder.description}</Typography>
-      <Table sx={{
-        pt:1,
-        "--Table-headerUnderlineThickness": "2px",
-        "--TableCell-height": "25px"
-      }}>
-        <thead>
-          <tr >
-            <th>Name</th>
-            <th>Description</th>
-            <th>Tasks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contents.map((content)=>{
-            return <React.Fragment key={`${content.type}__${content.slug}`}>
-              <tr >
-                <td>
-                  {content.type=='folder' && <>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {/* <Icon icon='folder' color='#444444'/> */}
-                    <i class="fa-regular fa-folder fa-xl"></i>
-                    <Link href={'/library'+'/'+content.slug}>{content.name}</Link>
-                    </Box>
-                  </>}
-                  {content.type=='task' && <>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      {/* <Icon icon='send' color='#6435c9'/> */}
-                      <i class="fa-solid fa-paper-plane fa-xl" style={{color:'#6435c9'}}></i>
+      <p className="text-sm text-muted-foreground mb-4">{folder.description}</p>
+      <div className="mt-4">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead>Tasks</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {contents.map((content)=>{
+              return <TableRow key={`${content.type}__${content.slug}`}>
+                <TableCell>
+                  {content.type=='folder' && (
+                    <div className="flex items-center gap-3">
+                      <i className="fa-regular fa-folder fa-xl"></i>
+                      <Link href={'/library'+'/'+content.slug}>{content.name}</Link>
+                    </div>
+                  )}
+                  {content.type=='task' && (
+                    <div className="flex items-center gap-3">
+                      <i className="fa-solid fa-paper-plane fa-xl" style={{color:'#6435c9'}}></i>
                       <Link href={'/tasks/'+content.slug}>{content.name}</Link>
-                    </Box>
-                  </>}
-                </td>
-                <td>{content.description}</td>
-                <td></td>
-              </tr>
-            </React.Fragment>
-          })}
-          
-          
-        </tbody>
-      </Table>
+                    </div>
+                  )}
+                </TableCell>
+                <TableCell>{content.description}</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            })}
+          </TableBody>
+        </Table>
+      </div>
 
       {/* <pre>{JSON.stringify(folder,null,2)}</pre> */}
       {/* <pre>{JSON.stringify(contents,null,2)}</pre> */}

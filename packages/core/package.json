@@ -9,12 +9,13 @@
     "index": "node ./init/bootstrap/index_tasks_and_folders.js",
     "build:server": "babel --config-file=./babel-configs/dist.babel.config.js src --out-dir=dist/server",
     "build:scripts": "babel --config-file=./babel-configs/dist.babel.config.js scripts --out-dir=dist/scripts",
-    "build": "rm -rf dist && npm run build:server && npm run build:scripts",
+    "build:copy-css": "mkdir -p dist/server/app && cp -r src/app/globals.css dist/server/app/globals.css",
+    "build": "rm -rf dist && npm run build:server && npm run build:scripts && npm run build:copy-css",
     "build:next": "next build",
     "prepare:tasks": "microlight-core prepare tasks",
     "prepare:folders": "microlight-core prepare folders",
     "prepare:server": "microlight-core prepare server",
-    "prepare2": "microlight-core prepare all",
+    "prepare:all": "microlight-core prepare all",
     "start": "next start",
     "lint": "next lint",
     "test": "jest"
@@ -30,9 +31,11 @@
     "@babel/generator": "^7.26.10",
     "@babel/parser": "^7.26.10",
     "@mui/joy": "^5.0.0-beta.51",
+    "@radix-ui/react-slot": "^1.2.3",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "async": "^3.2.6",
+    "clsx": "^2.1.1",
     "commander": "^13.1.0",
     "cronstrue": "^2.53.0",
     "glob": "^11.0.1",
@@ -48,13 +51,18 @@
     "react-dom": "^19.0.0",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7",
-    "switchless": "0.19.1"
+    "switchless": "0.19.1",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "autoprefixer": "^10.4.21",
     "babel-plugin-module-resolver": "^5.0.2",
     "jest": "^30.0.4",
-    "jest-environment-jsdom": "^30.0.5"
+    "jest-environment-jsdom": "^30.0.5",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16",
+    "tailwindcss-animate": "^1.0.7"
   }
 }
