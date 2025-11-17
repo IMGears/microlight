@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Optional if you want to match PartPricing */
+@custom-variant dark (&:is(.dark *));
+
+/* Theme system */
+@theme {
+  --radius: 0.5rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0.007 256.848);
+}
 
 @layer base {
   :root {
