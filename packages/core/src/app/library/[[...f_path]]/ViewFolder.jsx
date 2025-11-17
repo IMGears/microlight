@@ -1,13 +1,6 @@
 'use client';
-import { Table,Box,Container, Typography } from '@mui/joy';
 import React from 'react';
-
-
-
-import Icon from '@/components/Icon';
-
-// import Link from '@/components/Link';
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {Link} from 'switchless'
 import PageHeader from '@/components/PageHeader';
 
@@ -46,56 +39,60 @@ export default function ViewFolder({params,folder,contents,fileList}){
 
   const dir = params.f_path?'/'+params.f_path?.join('/'):'';
   return <>
-    <Container>
+    <div className="flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-6xl">
       <PageHeader breadcrumbs={breadcrumbs} header={{
         part1: 'Folder:',
         part2: folder.name
       }}/>
-      <Typography level='body-sm'>{folder.description}</Typography>
-      <Table sx={{
-        pt:1,
-        "--Table-headerUnderlineThickness": "2px",
-        "--TableCell-height": "25px"
-      }}>
-        <thead>
-          <tr >
-            <th>Name</th>
-            <th>Description</th>
-            <th>Tasks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contents.map((content)=>{
-            return <React.Fragment key={`${content.type}__${content.slug}`}>
-              <tr >
-                <td>
-                  {content.type=='folder' && <>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {/* <Icon icon='folder' color='#444444'/> */}
-                    <i class="fa-regular fa-folder fa-xl"></i>
-                    <Link href={'/library'+'/'+content.slug}>{content.name}</Link>
-                    </Box>
-                  </>}
-                  {content.type=='task' && <>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      {/* <Icon icon='send' color='#6435c9'/> */}
-                      <i class="fa-solid fa-paper-plane fa-xl" style={{color:'#6435c9'}}></i>
-                      <Link href={'/tasks/'+content.slug}>{content.name}</Link>
-                    </Box>
-                  </>}
-                </td>
-                <td>{content.description}</td>
-                <td></td>
-              </tr>
-            </React.Fragment>
-          })}
-          
-          
-        </tbody>
-      </Table>
+      <p className="text-sm text-muted-foreground mb-6">{folder.description}</p>
+      <div className="w-full">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b-2">
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Name</TableHead>
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Description</TableHead>
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Tasks</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {contents.map((content)=>{
+              return <TableRow key={`${content.type}__${content.slug}`}>
+                <TableCell className="px-2 py-3 align-middle">
+                  {content.type=='folder' && (
+                    <div className="flex items-center gap-2">
+                      <i className="fa-regular fa-folder"></i>
+                      <Link
+                        href={'/library'+'/'+content.slug}
+                        className="hover:underline"
+                      >
+                        {content.name}
+                      </Link>
+                    </div>
+                  )}
+                  {content.type=='task' && (
+                    <div className="flex items-center gap-2">
+                      <i className="fa-solid fa-paper-plane text-violet-600"></i>
+                      <Link
+                        href={'/tasks/'+content.slug}
+                        className="hover:underline"
+                      >
+                        {content.name}
+                      </Link>
+                    </div>
+                  )}
+                </TableCell>
+                <TableCell className="px-2 py-3 align-middle">{content.description}</TableCell>
+                <TableCell className="px-2 py-3 align-middle"></TableCell>
+              </TableRow>
+            })}
+          </TableBody>
+        </Table>
+      </div>
 
       {/* <pre>{JSON.stringify(folder,null,2)}</pre> */}
       {/* <pre>{JSON.stringify(contents,null,2)}</pre> */}
-    </Container>
+      </div>
+    </div>
   </>
 }
