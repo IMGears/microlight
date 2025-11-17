@@ -1,15 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Container } from "@/components/ui/container";
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {Link} from 'switchless'
 import PageHeader from '@/components/PageHeader';
 
@@ -48,40 +39,51 @@ export default function ViewFolder({params,folder,contents,fileList}){
 
   const dir = params.f_path?'/'+params.f_path?.join('/'):'';
   return <>
-    <Container>
+    <div className="flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-6xl">
       <PageHeader breadcrumbs={breadcrumbs} header={{
         part1: 'Folder:',
         part2: folder.name
       }}/>
-      <p className="text-sm text-muted-foreground mb-4">{folder.description}</p>
-      <div className="mt-4">
+      <p className="text-sm text-muted-foreground mb-6">{folder.description}</p>
+      <div className="w-full">
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Tasks</TableHead>
+            <TableRow className="border-b-2">
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Name</TableHead>
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Description</TableHead>
+              <TableHead className="h-10 px-2 text-left align-middle font-medium">Tasks</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {contents.map((content)=>{
               return <TableRow key={`${content.type}__${content.slug}`}>
-                <TableCell>
+                <TableCell className="px-2 py-3 align-middle">
                   {content.type=='folder' && (
-                    <div className="flex items-center gap-3">
-                      <i className="fa-regular fa-folder fa-xl"></i>
-                      <Link href={'/library'+'/'+content.slug}>{content.name}</Link>
+                    <div className="flex items-center gap-2">
+                      <i className="fa-regular fa-folder"></i>
+                      <Link
+                        href={'/library'+'/'+content.slug}
+                        className="hover:underline"
+                      >
+                        {content.name}
+                      </Link>
                     </div>
                   )}
                   {content.type=='task' && (
-                    <div className="flex items-center gap-3">
-                      <i className="fa-solid fa-paper-plane fa-xl" style={{color:'#6435c9'}}></i>
-                      <Link href={'/tasks/'+content.slug}>{content.name}</Link>
+                    <div className="flex items-center gap-2">
+                      <i className="fa-solid fa-paper-plane text-violet-600"></i>
+                      <Link
+                        href={'/tasks/'+content.slug}
+                        className="hover:underline"
+                      >
+                        {content.name}
+                      </Link>
                     </div>
                   )}
                 </TableCell>
-                <TableCell>{content.description}</TableCell>
-                <TableCell></TableCell>
+                <TableCell className="px-2 py-3 align-middle">{content.description}</TableCell>
+                <TableCell className="px-2 py-3 align-middle"></TableCell>
               </TableRow>
             })}
           </TableBody>
@@ -90,6 +92,7 @@ export default function ViewFolder({params,folder,contents,fileList}){
 
       {/* <pre>{JSON.stringify(folder,null,2)}</pre> */}
       {/* <pre>{JSON.stringify(contents,null,2)}</pre> */}
-    </Container>
+      </div>
+    </div>
   </>
 }
