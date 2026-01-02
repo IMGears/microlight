@@ -1,37 +1,37 @@
 'use client'
 import React from 'react';
-
-import { Box, Typography, Breadcrumbs } from '@mui/joy';
-import { Link as JoyLink } from '@mui/joy'
 import NextLink from 'next/link';
-
-
-// Create a basic link component in switchless and import it here
-const BreadcrumbLink = ({ href, children }) => {
-	return (
-		<JoyLink color="primary" component={NextLink} href={href}>
-			{children}
-		</JoyLink>
-	)
-}
+import { Typography } from '@/components/ui/typography';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 
 const BreadcrumbsCustom = function ({ breadcrumbs }) {
-
 	return (
-		<Breadcrumbs separator="›" aria-label="breadcrumbs" sx={{ p: 0 }}>
-			{breadcrumbs.map((b, index) => (
-				<React.Fragment key={index}>
-					{b.href ? (
-						<BreadcrumbLink key={b.href} href={b.href}>
-							{b.text}
-						</BreadcrumbLink>
-					) : (
-						<Typography key={b.text}>{b.text}</Typography>
-					)}
-				</React.Fragment>
-			))}
-		</Breadcrumbs>
+		<Breadcrumb>
+			<BreadcrumbList>
+				{breadcrumbs.map((b, index) => (
+					<React.Fragment key={index}>
+						{index > 0 && <BreadcrumbSeparator>›</BreadcrumbSeparator>}
+						<BreadcrumbItem>
+							{b.href ? (
+								<BreadcrumbLink asChild>
+									<NextLink href={b.href}>{b.text}</NextLink>
+								</BreadcrumbLink>
+							) : (
+								<BreadcrumbPage>{b.text}</BreadcrumbPage>
+							)}
+						</BreadcrumbItem>
+					</React.Fragment>
+				))}
+			</BreadcrumbList>
+		</Breadcrumb>
 	)
 }
 
@@ -40,7 +40,7 @@ export default function PageHeader({ header = "PageHeader", RightButtons = null,
 		level=headerLevel;
 	const renderHeader = () => {
 		if (React.isValidElement(header)) {
-			return header;  // Return React component as is
+			return header;
 		} else if (typeof header === 'string') {
 			return <Typography level={level}>{header}</Typography>
 		} else if (typeof header === 'object') {
@@ -48,12 +48,10 @@ export default function PageHeader({ header = "PageHeader", RightButtons = null,
 			return (
 				<Typography level={level}>
 					{headerParts.length === 1 ? (
-						<span>
-							{headerParts[0]}
-						</span>
+						<span>{headerParts[0]}</span>
 					) : (
 						headerParts.map((part, index) => (
-							<span key={index} style={{ opacity: index === 1 ? 1 : 0.5 }}>
+							<span key={index} className={index === 1 ? 'opacity-100' : 'opacity-50'}>
 								{part}{index < headerParts.length - 1 && ' '}
 							</span>
 						))
@@ -66,24 +64,19 @@ export default function PageHeader({ header = "PageHeader", RightButtons = null,
 
 
 	return (
-		<Box
+		<div
 			data-cy='page-header'
-			sx={{
-				display: 'flex',
-				flexDirection: { xs: 'column', sm: 'row' },
-				alignItems: { xs: 'flex-start', sm: 'center' },
-				gap: { xs: 1, sm: 1 },
-				pt:0.5,
-			}}>
-			<Box sx={{ flexGrow: 1 }}>
+			className="flex flex-col sm:flex-row items-start sm:items-center gap-2 pt-1"
+		>
+			<div className="flex-grow">
 				{breadcrumbs && <BreadcrumbsCustom breadcrumbs={breadcrumbs} />}
 				{renderHeader()}
-			</Box>
+			</div>
 			{RightButtons && (
-				<Box sx={{ flexGrow: 0, width: 'auto', margin: "auto 0" }}>
+				<div className="flex-shrink-0 my-auto">
 					{typeof RightButtons === 'function' ? <RightButtons /> : RightButtons}
-				</Box>
+				</div>
 			)}
-		</Box>
+		</div>
 	)
 }

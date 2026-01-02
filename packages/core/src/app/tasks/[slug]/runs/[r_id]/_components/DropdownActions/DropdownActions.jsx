@@ -1,23 +1,23 @@
 'use client';
-import {Menu,MenuItem,MenuButton,Dropdown} from '@mui/joy'
-
-import * as React from 'react';
-import Button from '@mui/joy/Button';
-// import Divider from '@mui/joy/Divider';
+import { EllipsisVertical } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 import { deleteRun } from './action';
 
-
-
-
 export default function DropdownActions({run}){
   async function onClickCreateVersion(){
-		
-	}	
+  }
+
   async function onClickCopyRerunAsCurl(){
     let href = window.location.href;
     let baseUrl = href.split('/runs/')[0].replace('/tasks/','/api/tasks/');
-    
+
     // Convert input object to URL query parameters
     const queryParams = new URLSearchParams();
     Object.entries(run?.inputs).forEach(([key, value]) => {
@@ -25,37 +25,31 @@ export default function DropdownActions({run}){
     });
     const curlCommand = `curl -X POST "${baseUrl}?${queryParams.toString()}"`;
     await navigator.clipboard.writeText(curlCommand);
-  }	
+  }
 
-
-	return(
-		<>
-      <Dropdown size='sm' >
-        <MenuButton
-          aria-label="master-data more options"
-          variant="outlined"
-          color="primary"
-          size="sm"
-          sx={{
-            // Add these styles to match IconButton
-            aspectRatio: '1',
-            // borderRadius: '50%',
-            p:0.5,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-8 w-8"
+          aria-label="more options"
           onClick={(event) => {
-            event.preventDefault();
             event.stopPropagation();
           }}
-        ><i class="fa-solid fa-ellipsis-vertical fa-lg"></i></MenuButton>
-        <Menu placement='bottom-end'>
-          <MenuItem disabled onClick={onClickCreateVersion}>Rerun job</MenuItem>
-          <MenuItem  onClick={onClickCopyRerunAsCurl}>Copy rerun as curl</MenuItem>
-          {/* <MenuItem color='danger' onClick={()=>{setOpen(true);}}>Delete Part</MenuItem> */}
-        </Menu>
-      </Dropdown>
-		</>
-	);
+        >
+          <EllipsisVertical className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem disabled onClick={onClickCreateVersion}>
+          Rerun job
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={onClickCopyRerunAsCurl}>
+          Copy rerun as curl
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }

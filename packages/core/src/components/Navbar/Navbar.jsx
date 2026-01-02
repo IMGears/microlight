@@ -2,64 +2,39 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-// import Logo from '../Logo';
-import { Box, Sheet, Button } from '@mui/joy';
+import { Button } from '@/components/ui/button';
 
 export default function Navbar({ user, signOut }) {
 	const pathname = usePathname();
 
 	return (
-		<Sheet
-			component="nav"
-			sx={{
-				px: 1,
-				// py: 0.5,
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'space-between',
-				// boxShadow: 'sm',
-				borderBottom: '1px solid',
-				borderColor: 'divider',
-				position: 'fixed',
-				top: 0,
-				left: 0,
-				right: 0,
-				height: '40px',
-				zIndex: 1000,
-				bgcolor: 'background.surface',
-				// bgcolor: 'white',
-			}}
-		>
-			<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-				{/* <Logo offering='Transactions' /> */}
-				<Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-					<Box sx={{ fontWeight: 'bold' }}>Microlight</Box>
+		<nav className="px-2 flex items-center justify-between border-b border-border fixed top-0 left-0 right-0 h-10 z-[1000] bg-background">
+			<div className="flex items-center gap-4">
+				<Link href="/" className="no-underline text-inherit">
+					<span className="font-bold">Microlight</span>
 				</Link>
 
-				<Box sx={{ display: 'flex', gap: 1 }}>
-					<Link href="/library" style={{ textDecoration: 'none' }}>
+				<div className="flex gap-2">
+					<Link href="/library" className="no-underline">
 						<Button
-							variant={pathname?.startsWith('/library') ? 'solid' : 'plain'}
+							variant={pathname?.startsWith('/library') ? 'default' : 'ghost'}
 							size="sm"
-							color="neutral"
 						>
 							Library
 						</Button>
 					</Link>
 
-					<Link href="/monitoring" style={{ textDecoration: 'none' }}>
+					<Link href="/monitoring" className="no-underline">
 						<Button
-							variant={pathname?.startsWith('/monitoring') ? 'solid' : 'plain'}
+							variant={pathname?.startsWith('/monitoring') ? 'default' : 'ghost'}
 							size="sm"
-							color="neutral"
 						>
 							Monitoring
 						</Button>
 					</Link>
-				</Box>
-			</Box>
-
-		</Sheet>
+				</div>
+			</div>
+		</nav>
 	);
-};
+}
 

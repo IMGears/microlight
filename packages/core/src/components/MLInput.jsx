@@ -1,45 +1,51 @@
-import { FormControl, FormLabel,Input, Select, Option } from "@mui/joy";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function MLInput({def,slug,searchParams}){
 
-  return <>
-    <FormControl required={def.required} sx={{mb:2}}>
-      <FormLabel sx={{mb:0.25}}>{def.name}:</FormLabel>
+  return (
+    <div className="mb-4">
+      <Label className="mb-1 block">
+        {def.name}:{def.required && <span className="text-destructive ml-1">*</span>}
+      </Label>
       {['string', 'number', 'date'].includes(def.type) && (
-        <Input 
-          size= "sm"
-          name= {slug}
-          placeholder= {def.placeholder}
-          defaultValue= {searchParams[slug] || def.default || ""}
-          type={def.type}
+        <Input
+          size="sm"
+          name={slug}
+          placeholder={def.placeholder}
+          defaultValue={searchParams[slug] || def.default || ""}
+          type={def.type === 'string' ? 'text' : def.type}
+          required={def.required}
         />
       )}
       {def.type === 'file' && (
-        // Placeholder for future file input implementation
-        <Input 
+        <Input
           size="sm"
           name={slug}
           placeholder={def.placeholder}
           type="file"
-          // Add any file-specific props here
+          required={def.required}
         />
       )}
       {def.type === 'dropdown' && (
         <Select
-          size="sm"
           name={slug}
-          placeholder={def.placeholder}
-          defaultValue= {searchParams[slug] || def.default || ""}
+          defaultValue={searchParams[slug] || def.default || ""}
+          required={def.required}
         >
-          {def.options?.map((option) => (
-            <Option key={option.value} value={option.value}>
-              {option.label || option.value}
-            </Option>
-          ))}
+          <SelectTrigger size="sm">
+            <SelectValue placeholder={def.placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {def.options?.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label || option.value}
+              </SelectItem>
+            ))}
+          </SelectContent>
         </Select>
       )}
-    </FormControl>
-    {/* string input - {slug} <br/> */}
-    {/* <pre>{JSON.stringify(def,null,2)}</pre> */}
-  </>
+    </div>
+  )
 }

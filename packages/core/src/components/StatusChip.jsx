@@ -1,24 +1,20 @@
-import { Chip } from '@mui/joy';
+import { Badge } from '@/components/ui/badge';
 
-function chipStatusColor(status) {
+function chipStatusVariant(status) {
   if (status === 'complete')
     return 'success'
   else if (status === 'pending')
     return 'warning'
   else if (status === 'running')
-    return 'primary'
-  else 
-    return 'danger'
+    return 'default'
+  else
+    return 'destructive'
 }
 
 export default function StatusChip({ status }) {
   return (
-    <Chip
-      variant="soft"
-      color={chipStatusColor(status)}
-      size="sm"
-    >
+    <Badge variant={chipStatusVariant(status)}>
       {status || 'pending'}
-    </Chip>
+    </Badge>
   );
 } 

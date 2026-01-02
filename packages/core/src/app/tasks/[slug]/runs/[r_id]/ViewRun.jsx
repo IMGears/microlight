@@ -1,10 +1,19 @@
 'use client';
 import PageHeader from "@/components/PageHeader";
-import { Container,Table,Link,Chip,Typography,Sheet,Alert } from "@mui/joy";
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import StatusChip from "@/components/StatusChip";
 import DropdownActions from "./_components/DropdownActions/DropdownActions";
+import { Typography } from '@/components/ui/typography';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 function generateBreadcrumbs({task,params}) {
   let breadcrumbs = [
@@ -17,7 +26,7 @@ function generateBreadcrumbs({task,params}) {
   if (task.__folder) {
     const f_path = task.__folder.split('/');
     let folderPath = '/library';
-    
+
     f_path.forEach((folder, index) => {
       folderPath += '/' + folder;
       breadcrumbs.push({
@@ -40,9 +49,9 @@ export default function ViewRun({params,task,run,logs}){
   const breadcrumbs = generateBreadcrumbs({task,params})
   const router = useRouter();
   let RightButtons= function(){
-    return <>
+    return (
       <DropdownActions run={run}/>
-    </>
+    )
   }
   useEffect(() => {
 
@@ -61,161 +70,98 @@ export default function ViewRun({params,task,run,logs}){
     };
   }, [run]);
 
-  return <>
-    <Container>
-      <PageHeader 
-        breadcrumbs={breadcrumbs} 
+  return (
+    <div className="max-w-7xl mx-auto">
+      <PageHeader
+        breadcrumbs={breadcrumbs}
         header={{
           part1: 'Task Run:',
           part2: task.name
         }}
         RightButtons={RightButtons}
-        // icon={<SendIcon sx={{color: '#6435c9'}} />}
       />
-      <Table 
-        variant='outlined' 
-        borderAxis="bothBetween"
+      <div className="mt-2 max-w-[500px]">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Created At</TableHead>
+              <TableHead>Started At</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="w-[58px]">Duration</TableHead>
+              <TableHead>By</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>{new Date(run.created_at).toLocaleString()}</TableCell>
+              <TableCell>{run.started_at && new Date(run.started_at).toLocaleString()}</TableCell>
+              <TableCell><StatusChip status={run.status} /></TableCell>
+              <TableCell className="text-right">{run.duration/1000||0}s</TableCell>
+              <TableCell>{run.by||'user'}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
 
-        aria-label="task runs table" 
-        size='md'
-        sx={{
-          mt: 1,
-          maxWidth: 500,
-          '& th': {
-            height:{
-              sm:"22px",
-              md:"26px",
-              lg:"30px"
-            }
-          },
-          '& td': {
-            height:{
-              sm:"23px",
-              md:"27px",
-              lg:"31px"
-            }
-          }
-        }}
-      >
-        <thead>
-          <tr>
-            {/* <th ></th> */}
-            <th >Created At</th>
-            <th >Started At</th>
-            {/* <th >ID</th> */}
-            <th>Status</th>
-            <th style={{ width: '58px' }}>Duration</th>
-            <th>By</th>
-            {/* <th>User</th> */}
-          </tr>
-        </thead>
-        <tbody>
-          <tr key={run.id}>
-            <td>{new Date(run.created_at).toLocaleString()}</td>
-            <td>{run.started_at && new Date(run.started_at).toLocaleString()}</td>
-            
-            <td><StatusChip status={run.status} /></td>
-            <td style={{textAlign: 'right'}}>{run.duration/1000||0}s</td>
-            <td>{run.by||'user'}</td>
-            {/* <td>{run.user}</td> */}
-          </tr>
-        </tbody>
-      </Table>
-      <Typography level="title-lg" sx={{mt:3,mb:1}}>Payload:</Typography>
+      <Typography level="title-lg" className="mt-6 mb-2">Payload:</Typography>
       <pre>{JSON.stringify(run.inputs,null,2)}</pre>
-      <Typography level="title-lg" sx={{mt:3,mb:1}}>Logs:</Typography>
-      <Sheet sx={{bgcolor:'white'}}>
-        <Table
-          borderAxis="xBetween"
-          size="md"
-          variant="outlined"
-          sx={{
-            border:'1px solid #d9dada',
-            '--TableCell-borderColor': '#ebebeb'
-          }}
-        >
-          <tbody>
+
+      <Typography level="title-lg" className="mt-6 mb-2">Logs:</Typography>
+      <div className="bg-white border rounded-md">
+        <Table>
+          <TableBody>
             {logs.map((log, index) => (
-              <tr key={index}>
-                <td style={{width:90, padding:7,paddingLeft:14, verticalAlign: 'top',height:'auto'}}>
-                  <Typography level="body-sm" fontFamily="monospace">
+              <TableRow key={index}>
+                <TableCell className="w-[90px] p-2 pl-4 align-top">
+                  <Typography level="body-sm" className="font-mono">
                     {new Date(log.created_at).toLocaleTimeString()}
                   </Typography>
-                </td>
-                <td style={{ padding:7, verticalAlign: 'top',height:'auto'}}>
+                </TableCell>
+                <TableCell className="p-2 align-top">
                   {log.type=='markdown' ? (
-                    <Alert variant='soft' color="primary" sx={{
-                      p:2,
-                      pb:0,
-                      // bgcolor:'#e3fbe3',
-                      bgcolor:'#f8ffff',
-                      color:'#276f85',
-                      border: '1px solid #a8d4dd',
-                      '& h4, & h3,':{
-                        mt:0,
-                      }
-                    }}>
-                      <div className='' dangerouslySetInnerHTML={{ __html: log.content }} />
+                    <Alert className="bg-sky-50 border-sky-200 text-sky-800">
+                      <AlertDescription>
+                        <div dangerouslySetInnerHTML={{ __html: log.content }} />
+                      </AlertDescription>
                     </Alert>
-                    
                   ) : log.type=='json' ? (
-                    <div style = {{height: '300px', backgroundColor: '#e5d2fc', overflowY: 'scroll'}}>
-                      <pre className="json-renderer" style={{ padding: 0, margin: 0 }}>
+                    <div className="h-[300px] bg-purple-100 overflow-y-scroll">
+                      <pre className="p-0 m-0">
                         {JSON.stringify(JSON.parse(log.content), null, 2)}
                       </pre>
                     </div>
                   ) : log.type=='error' ? (
-                    <Alert variant='soft' color="danger" sx={{
-                      p:2,
-                      pb:0,
-                      overflow:'auto',
-                      '&::-webkit-scrollbar': {
-                        display: 'none'
-                      },
-                      scrollbarWidth: 'none',  // Firefox
-                      msOverflowStyle: 'none',  // IE and Edge
-                      // bgcolor:'#e3fbe3',
-                      // bgcolor:'#f8ffff',
-                      // color:'#276f85',
-                      border: '1px solid #e0b4b4',
-                      '& h4, & h3,':{
-                        mt:0,
-                      }
-                    }}>
-                      <div>
-                      <h4>Error : {JSON.parse(log.content)?.message}</h4>
-                      {JSON.parse(log.content)?.stack}
-                      
-                      </div>
+                    <Alert variant="destructive" className="overflow-auto scrollbar-hide">
+                      <AlertDescription>
+                        <h4 className="font-semibold">Error: {JSON.parse(log.content)?.message}</h4>
+                        <pre className="text-xs mt-2 whitespace-pre-wrap">{JSON.parse(log.content)?.stack}</pre>
+                      </AlertDescription>
                     </Alert>
                   ) : log.type=='warn' ? (
-                    <Alert variant='soft' color="warning" sx={{py:1,my:-0.4}}>
-                      {log.content}
+                    <Alert variant="warning" className="py-2">
+                      <AlertDescription>{log.content}</AlertDescription>
                     </Alert>
                   ) : log.type=='info' ? (
-                    <Alert variant='soft' color="primary" sx={{py:1,my:-0.4}}>
-                      {log.content}
+                    <Alert className="py-2 bg-blue-50 border-blue-200 text-blue-800">
+                      <AlertDescription>{log.content}</AlertDescription>
                     </Alert>
                   ) : log.type=='danger' ? (
-                    <Alert variant='soft' color="danger" sx={{py:1,my:-0.4}}>
-                      {log.content}
+                    <Alert variant="destructive" className="py-2">
+                      <AlertDescription>{log.content}</AlertDescription>
                     </Alert>
                   ) : log.type=='success' ? (
-                    <Alert variant='soft' color="success" sx={{py:1,my:-0.4}}>
-                      {log.content}
+                    <Alert variant="success" className="py-2">
+                      <AlertDescription>{log.content}</AlertDescription>
                     </Alert>
                   ) : (
-                    <Typography level="body-sm" fontFamily="monospace">{log.content}</Typography>
+                    <Typography level="body-sm" className="font-mono">{log.content}</Typography>
                   )}
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
+          </TableBody>
         </Table>
-      </Sheet>
-      <br/>
-      {/* <pre>{JSON.stringify(task,null,2)}</pre> */}
-      {/* <pre>{JSON.stringify(run,null,2)}</pre> */}
-    </Container>
-  </>
+      </div>
+    </div>
+  )
 }
