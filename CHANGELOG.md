@@ -15,6 +15,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.10.1] - 2026-01-03
+
+### Changed
+
+- Reorganized documentation structure with new organized hierarchy
+- Added comprehensive guide documentation (`docs/guide/`): getting-started, writing-tasks, inputs, ml-functions, scheduling, api, troubleshooting
+- Added example documentation (`docs/examples/`): basic-task, task-with-inputs, scheduled-task, bulk-execution, error-handling
+- Added internal documentation (`docs/internal/`): architecture, execution-engine, task-discovery, database-schema, cli-internals, monitoring, contributing, decisions
+- Added main documentation index (`docs/index.md`)
+
+### Removed
+
+- Removed legacy documentation files: `docs/docs.md`, `docs/general/*`, `docs/reference/*`
+
 ## [0.10.0] - 2026-01-03
 
 ### Added
