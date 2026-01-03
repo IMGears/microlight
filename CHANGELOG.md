@@ -15,6 +15,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.11.0] - 2026-01-03
+
+### Added
+
+- New shadcn/ui component library with 13 components: `alert`, `badge`, `breadcrumb`, `button`, `card`, `dropdown-menu`, `input`, `label`, `select`, `stack`, `table`, `tabs`, `typography`
+- Tailwind CSS and PostCSS configuration (`postcss.config.mjs`)
+- Utility function `cn()` for className merging (`src/utils/css/cn.js`)
+- Code review reports: documentation-review, storybook-review, unit-tests-review
+- WIP login implementation documentation (`docs/wip/04-implement-login.md`)
+- Task configuration files (`.mlrc.json`)
+
+### Changed
+
+- Migrated UI components from MUI to shadcn/ui
+- Updated `ViewFolder`, `MonitoringDashboard`, `ViewTask`, `ViewRun` pages with new component library
+- Updated `DropdownActions`, `Link`, `MLInput`, `Navbar`, `NavbarContainer`, `PageHeader`, `StatusChip` components
+- Updated `globals.css` with Tailwind/shadcn design tokens
+- Replaced `next.config.mjs` with `next.config.js`
+
+### Removed
+
+- Removed `Icon.jsx` component (replaced by Lucide icons via shadcn)
+- Removed MUI dependency
+
 ## [0.10.1] - 2026-01-03
 
 ### Changed
