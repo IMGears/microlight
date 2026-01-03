@@ -19,14 +19,37 @@ export async function prepareServer(){
 
   console.log("serverSrcDir:", serverSrcDir);
   console.log("serverDestDir:", serverDestDir);
-  
+
   // Ensure destination exists
   if (!fs.existsSync(serverDestDir)) {
     fs.mkdirSync(serverDestDir, { recursive: true });
   }
 
-  // Copy files
+  // Copy server JS files
   copySync(serverSrcDir, serverDestDir, { overwrite: true });
+
+  // Copy static assets from src/app (globals.css, favicon.ico)
+  const staticAssets = ["globals.css", "favicon.ico"];
+  const srcAppDir = path.join(coreRoot, "src", "app");
+  const destAppDir = path.join(serverDestDir, "app");
+
+  for (const asset of staticAssets) {
+    const srcPath = path.join(srcAppDir, asset);
+    const destPath = path.join(destAppDir, asset);
+    if (fs.existsSync(srcPath)) {
+      copySync(srcPath, destPath, { overwrite: true });
+      console.log(`Copied ${asset}`);
+    }
+  }
+
+  // Copy public folder assets
+  const publicSrcDir = path.join(coreRoot, "public");
+  const publicDestDir = path.join(processDir, ".microlight", "server", "public");
+
+  if (fs.existsSync(publicSrcDir)) {
+    copySync(publicSrcDir, publicDestDir, { overwrite: true });
+    console.log("Public assets copied successfully!");
+  }
 
   console.log("Server files copied successfully!");
 }
